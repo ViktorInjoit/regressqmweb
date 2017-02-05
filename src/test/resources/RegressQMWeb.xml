@@ -1,0 +1,22 @@
+<suite name="RegressQMWeb" parallel="tests" thread-count="2">
+    <test name="ChromeTest">
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="domain" value="https://qmdev.quickblox.com/"/>
+        <classes>
+            <class name="com.quickblox.qmdev.tests.LinksCheckingsOnWelcome">
+                <parameter name="appname" value="checklinks"/>
+                <methods>
+                    <method name="checkingFooterLinks"/>
+                    <method name="verifyingPhoneNumberForm"/>
+                </methods>
+            </class>
+            <!--<class name="com.quickblox.qmdev.tests.LogIns">-->
+                <!--<parameter name="appname" value="login"/>-->
+                <!--<methods>-->
+                    <!--<method name="logInByEmail"/>-->]
+                    <!--<method name="loggingOut"/>-->
+                <!--</methods>-->
+            <!--</class>-->
+        </classes>
+    </test>
+</suite>
