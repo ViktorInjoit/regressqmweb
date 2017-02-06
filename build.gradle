@@ -1,0 +1,30 @@
+group 'org.testing'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+//    mavenCentral()
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
+    testCompile group: 'org.testng', name: 'testng', version: '6.8.17'
+}
+
+test {
+    useTestNG() {
+        def suiteToRun = "src/test/resources/regressqmweb.xml" as String
+        println suiteToRun
+        suites suiteToRun
+    }
+
+
+    afterTest { test, result ->
+        println "Executing test ${test.name} [${test.className}] with result: ${result.resultType}"
+    }
+}
