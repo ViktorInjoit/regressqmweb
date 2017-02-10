@@ -7,21 +7,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WelcomePage extends BasePage {
 
-//    private WebDriverWait webDriverWait;
-
     public WelcomePage(WebDriver driver) {
         super(driver);
-//        this.webDriverWait = getWebDriverWait();
     }
-
-    public WelcomePage(WebDriverWait webDriverWait) {
-        super(webDriverWait);
-    }
-
-//    @Override
-//    public WebDriverWait getWebDriverWait() {
-//        return webDriverWait;
-//    }
 
     private By LOGIN_WITH_PHONE_NUMBER_BUTTON = findByXpath(".//*[@class='btn l-welcome_btn l-welcome_btn_green j-twitterDigits'][contains(text(),'connect with phone number')]");
     private By LOGIN_BY_EMAIL_OR_SOCIAL_BUTTON = findById("loginQB");
@@ -79,5 +67,4 @@ public class WelcomePage extends BasePage {
     public void clickTheAndroidButton() {
         click(ANDROID_APP_FOOTER_BUTTON);
     }
-
 }

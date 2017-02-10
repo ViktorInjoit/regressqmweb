@@ -1,38 +1,43 @@
 package com.quickblox.qmdev.tests;
 
+import com.quickblox.qmdev.pages.BasePage;
 import com.quickblox.qmdev.pages.LogInWithPhone;
 import com.quickblox.qmdev.pages.WelcomePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 
-public class LinksCheckingsOnWelcome extends BaseTest{
+public class LinksCheckingsOnWelcome extends BasePage{
 
     private SoftAssert softAssert;
 
     private WelcomePage welcomePage;
     private LogInWithPhone logInWithPhone;
 
+    public LinksCheckingsOnWelcome(WebDriver webDriver) {
+        super(webDriver);
+    }
+
+    public LinksCheckingsOnWelcome() {
+        super();
+    }
+
     @BeforeTest
     public void initializingPagesAndVariables() {
         softAssert = new SoftAssert();
 
         welcomePage = new WelcomePage(getWebDriver());
-        welcomePage = new WelcomePage(getWebDriverWait());
-
         logInWithPhone = new LogInWithPhone(getWebDriver());
-        logInWithPhone = new LogInWithPhone(getWebDriverWait());
     }
 
     /**
      * Checking footer links, such as Quickblox, appstore and android
      * */
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void checkingFooterLinks() {
 
         By QB_GET_STARTED = findByXpath(".//*[@class='btn extra large']");
@@ -67,28 +72,14 @@ public class LinksCheckingsOnWelcome extends BaseTest{
         getWebDriver().switchTo().window(tabs2.get(0));
     }
 
-    @Test
+    @Test(enabled = true)
     public void verifyingPhoneNumberForm() {
+            welcomePage.pressLogInWithPhoneNumber();
+            ArrayList<String> tabs = new ArrayList<>(getWebDriver().getWindowHandles());
+            getWebDriver().switchTo().window(tabs.get(1));
+            getWebDriver().switchTo().frame(getWebDriver().findElement(findByCss(".digits-embed")));
+            click(findByXpath("//button[@type='submit']"));
+            pause(5000);
+        }
 
-
-//        String parentHandle = getWebDriver().getWindowHandle();
-        welcomePage.pressLogInWithPhoneNumber();
-        ArrayList<String> tabs = new ArrayList<>(getWebDriver().getWindowHandles());
-        getWebDriver().switchTo().window(tabs.get(1));
-//        for (String winHandle : getWebDriver().getWindowHandles()) {
-//            getWebDriver().switchTo().window(winHandle);
-
-//            getWebDriverWait().until(ExpectedConditions.elementToBeClickable(SUBMIT_BUTTON)).click();
-//            getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(APPEARED_ERROR));
-//            waitUntilElementVisible(SUBMIT_BUTTON);
-//            welcomePage.type(APPEARED_PHONE_INPUT_FORM, "11111");
-
-//        }
-        logInWithPhone.inputPhoneNumberAndGetError();
-
-        getWebDriver().close();
-        getWebDriver().switchTo().window(tabs.get(0));
-
-        softAssert.assertAll();
-    }
 }

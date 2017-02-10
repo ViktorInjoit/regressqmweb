@@ -1,78 +1,90 @@
 package com.quickblox.qmdev.tests;
 
-import com.quickblox.qmdev.initializations.Wrappers;
-import org.openqa.selenium.Dimension;
+import com.quickblox.qmdev.utils.TestListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
 
-public abstract class BaseTest extends Wrappers {
+@Listeners(TestListener.class)
+public abstract class BaseTest {
 
     private static String currentBrowser = "Chrome";
-    private static String currentDomain = "https://qmdev.quickblox.com/";
+    public static String currentDomain = "https://qmdev.quickblox.com/";
 
-    private WebDriver driver;
+    private WebDriver webDriver;
     private WebDriverWait webDriverWait;
-
-    /**
-     * ChromeDriver for Mac
-     */
-    private WebDriver setChromeDriver() {
-//        String pathToChrome = Paths.get("./src/test/resources/chromedriver_mac").toAbsolutePath().toString();
-        String pathToChrome = Paths.get("./src/test/resources/chromedriver.exe").toAbsolutePath().toString();
-        System.setProperty("webdriver.chrome.driver", pathToChrome);
-        WebDriver driverChrome = new ChromeDriver();
+    private SoftAssert softAssert;
 
 
-
-        driverChrome.get(currentDomain);
-        driverChrome.manage().timeouts().implicitlyWait(5, TimeUnit.MINUTES);
-        driverChrome.manage().window().setSize(new Dimension(1920, 1080));
-
-        this.webDriverWait = new WebDriverWait(driverChrome, 10);
-        return driverChrome;
-    }
-    public static String getCurrentBrowser() {
-        return currentBrowser;
-    }
-
-    public static String getCurrentDomain() {
-        return currentDomain;
-    }
-
-    @Override
-    public WebDriverWait getWebDriverWait() {
-        return webDriverWait;
-    }
-
-    @Override
-    public WebDriver getWebDriver() {
-        return driver;
-    }
-
-    @Parameters({"browser", "domain"})
-    @BeforeTest
-    public void setUpBrowserAndDomain(String browser, String domain) {
-        this.currentBrowser = browser;
-        this.currentDomain = domain;
-    }
 
     @BeforeTest
-    public void setUp() {
-        if ("Chrome".equals(currentBrowser)) {
-            driver = setChromeDriver();
+    public void initDriver() {
+        if (System.getProperty("selenium.browser") == null) {
+            System.setProperty("selenium.browser", "chrome");
         }
-        //else if browsers here
+
+        webDriver = getNewDriver();
+        webDriverWait = new WebDriverWait(webDriver, 15);
+        softAssert = new SoftAssert();
     }
 
     @AfterTest
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+    public void destroyDriver() {
+        if (webDriver != null) {
+            webDriver.quit();
         }
+    }
+
+    @BeforeSuite
+    private WebDriver getNewDriver() {
+        String path = System.getProperty("user.dir");
+        //Setting up the chrome driver
+        if (webDriver == null && System.getProperty("selenium.browser").equals("chrome")) {
+            //Defining the OS
+            if (System.getProperty("os.name").contains("Windows")) {
+                Reporter.log("Starting chrome driver for windows", true);
+                System.setProperty("webdriver.chrome.driver", Paths.get("./src/test/resources/chromedriver.exe").toAbsolutePath().toString());
+            } else if (System.getProperty("os.name").contains("Mac OS")) {
+                Reporter.log("Starting chrome driver for Mac OS", true);
+                System.setProperty("webdriver.chrome.driver", Paths.get("./src/test/resources/chromedriver_mac").toAbsolutePath().toString());
+            }
+            //setting options
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--disable-extensions");
+            options.addArguments("--desktop-window-1080p");
+            options.addArguments("start-maximized");
+
+            String downloadFilePath = path + "/downloads";
+            HashMap<String, Object> chromePrefs = new HashMap<>();
+            chromePrefs.put("profile.default_content_settings.popups", 0);
+            chromePrefs.put("download.default_directory", downloadFilePath);
+
+            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+            capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+            capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+
+            webDriver = new ChromeDriver(options);
+        } else if (webDriver == null && System.getProperty("selenium.browser").equals("firefox")) {
+            if (System.getProperty("os.name").contains("Windows")) {
+                Reporter.log("Starting firefox driver for windows", true);
+                System.setProperty("webdriver.chrome.driver", Paths.get("./src/test/resources/geckodriver.exe").toAbsolutePath().toString());
+            } else if (System.getProperty("os.name").contains("Mac OS")) {
+                Reporter.log("Starting firefox driver for Mac OS", true);
+                System.setProperty("webdriver.chrome.driver", Paths.get("./src/test/resources/geckodriver_mac").toAbsolutePath().toString());
+            }
+            //realization here
+            webDriver = new FirefoxDriver();
+        }
+        return webDriver;
     }
 }
