@@ -41,6 +41,12 @@ public class UserLoggedInPage extends BasePage {
 
     private final By CONTACTS_BUTTON = findById("contacts");
     private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@class='search btn btn_invite btn_invite_contacts btn_add']");
+    private final By REJECT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_cancel j-requestCancel']");
+    private final By USER_ON_LEFT_SIDE = findByXPath("//*[@class='contact l-flexbox']");
+
+    private final By SEND_REQUEST_TO_ADD_USER = findByXPath("//*[@class='send-request j-sendRequest']");
+    private final By REQUEST_SENT = findByXPath("//span[text()='Request Sent']");
+    private final By SEND_REQUEST_AGAIN_BUTTON_CHAT = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again j-requestAgain']");
 
     private final By QB_FOOTER_BUTTON = findByXPath("//*[@alt='QuickBlox']");
     private final By QB_GET_STARTED = findByXPath(".//*[@class='btn extra large']");
@@ -87,6 +93,24 @@ public class UserLoggedInPage extends BasePage {
         softAssert.assertAll();
         click(CLEAN_SEARCH_FIELD_BUTTON);
         refreshPage();
+    }
+
+    /**
+     * Requests and collaborating
+     * */
+    public void sendAddRequestToUser() {
+        click(SEND_REQUEST_TO_ADD_USER);
+        softAssert.assertEquals(getText(REQUEST_SENT), "Request Sent");
+        softAssert.assertAll();
+    }
+
+    public void rejectRequestToAddUser() {
+        click(REJECT_REQUEST_BUTTON);
+    }
+
+    public void sendRequestAgain() {
+        click(USER_ON_LEFT_SIDE);
+        click(SEND_REQUEST_AGAIN_BUTTON_CHAT);
     }
 
     public UserLoggedInPage openProfile() {

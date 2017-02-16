@@ -1,6 +1,7 @@
 package com.quickblox.qmdev.pages;
 
 import com.quickblox.qmdev.pages.users.TestUser1;
+import com.quickblox.qmdev.pages.users.TestUser2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,6 +18,7 @@ public class WelcomePage extends BasePage {
     private SoftAssert softAssert = new SoftAssert();
 
     private TestUser1 testUser1 = new TestUser1(testEmail1, testPass, tempPass);
+    private TestUser2 testUser2 = new TestUser2(testEmail2, testPass, tempPass);
 
 //    public final By HOME = findById("home");
 
@@ -87,13 +89,13 @@ public class WelcomePage extends BasePage {
         return this;
     }
 
-//    public WelcomePage logInViaEmailUser2() {
-//        clearAndType(EMAIL_FIELD, testEmail2);
-//        clearAndType(PASS_FIELD, testPass);
-//        click(LOG_IN);
-//        return new WelcomePage(driver, wait);
-//    }
-//
+    public WelcomePage logInViaEmailUser2() {
+        clearAndType(EMAIL_FIELD, testUser2.getEmail());
+        clearAndType(PASS_FIELD, testUser2.getTestPass());
+        click(LOG_IN);
+        return new WelcomePage(driver, wait);
+    }
+
 //    public WelcomePage logInViaEmailUser3() {
 //        clearAndType(EMAIL_FIELD, testEmail3);
 //        clearAndType(PASS_FIELD, testPass);
@@ -125,8 +127,7 @@ public class WelcomePage extends BasePage {
     }
 
     /**<p>Negative check log in via email
-     * @param email is actual from DB
-     * @param password could be any kind (empty or with wrong symbols)</p>*/
+     * </p>*/
     public void negativeLogInViaEmailWithEmptyPasswordField() {
         //with empty password field
         clearAndType(EMAIL_FIELD, testUser1.getEmail());
