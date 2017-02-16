@@ -4,7 +4,7 @@ import com.quickblox.qmdev.pages.WelcomePage;
 import com.quickblox.qmdev.pages.userprofile.Profile;
 import com.quickblox.qmdev.pages.userprofile.Settings;
 import com.quickblox.qmdev.pages.userprofile.UserLoggedInPage;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 public class UserOptionsTest extends BaseTest {
@@ -106,8 +106,9 @@ public class UserOptionsTest extends BaseTest {
         profile.changePasswordNegative();
     }
 
-    @AfterTest(dependsOnMethods = "checkName", enabled = true)
+    @AfterClass(enabled = true)
     public void rollbackAfterChangesNameStatusPhone() {
+        setUp();
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
@@ -116,11 +117,12 @@ public class UserOptionsTest extends BaseTest {
         userLoggedInPage.openProfile();
         Profile profile = new Profile(driver, wait);
         profile.rollbackAfterChangeNameStatusPhone();
-        refreshPage();
+        tearDown();
     }
 
-    @AfterTest(dependsOnMethods = "editPassword",enabled = true)
+    @AfterClass(enabled = true)
     public void rollbackAfterPasswordEditing() {
+        setUp();
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
@@ -129,6 +131,6 @@ public class UserOptionsTest extends BaseTest {
         userLoggedInPage.openProfile();
         Profile profile = new Profile(driver, wait);
         profile.rollbackAfterEditingPassword();
-        refreshPage();
+        tearDown();
     }
 }

@@ -4,21 +4,21 @@
         <parameter name="browser" value="Chrome"/>
         <parameter name="domain" value="https://qmdev.quickblox.com/"/>
         <classes>
-            <!--<class name="com.quickblox.qmdev.tests.LinksCheckingsOnWelcomeTest">-->
-                <!--<parameter name="appname" value="checklinks"/>-->
-                <!--<methods>-->
-                    <!--<method name="verifyingPhoneNumberForm"/>-->
-                    <!--<method name="checkingFooterLinks"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-            <!--<class name="com.quickblox.qmdev.tests.LogInsTest">-->
-                <!--<parameter name="appname" value="login"/>-->
-                <!--<methods>-->
-                    <!--<method name="logInByEmail"/>-->
-                    <!--<method name="logInByFacebook"/>-->
-                    <!--<method name="logInByEmailNegative"/>-->
-                <!--</methods>-->
-            <!--</class>-->
+            <class name="com.quickblox.qmdev.tests.LinksCheckingsOnWelcomeTest">
+                <parameter name="appname" value="checklinks"/>
+                <methods>
+                    <method name="verifyingPhoneNumberForm"/>
+                    <method name="checkingFooterLinks"/>
+                </methods>
+            </class>
+            <class name="com.quickblox.qmdev.tests.LogInsTest">
+                <parameter name="appname" value="login"/>
+                <methods>
+                    <method name="logInByEmail"/>
+                    <method name="logInByFacebook"/>
+                    <method name="logInByEmailNegative"/>
+                </methods>
+            </class>
             <class name="com.quickblox.qmdev.tests.UserOptionsTest">
                 <parameter name="appname" value="useroptions"/>
                 <methods>
@@ -32,14 +32,14 @@
                     <method name="editPasswordNegative"/>
                 </methods>
             </class>
-            <!--<class name="com.quickblox.qmdev.tests.SearchTest">-->
-                <!--<parameter name="appname" value="searches"/>-->
-                <!--<methods>-->
-                    <!--<method name="searchTopLeftField"/>-->
-                    <!--<method name="searchForFriendsRedButtonClick"/>-->
-                    <!--<method name="checkContactsButton"/>-->
-                <!--</methods>-->
-            <!--</class>-->
+            <class name="com.quickblox.qmdev.tests.SearchTest">
+                <parameter name="appname" value="searches"/>
+                <methods>
+                    <method name="searchTopLeftField"/>
+                    <method name="searchForFriendsRedButtonClick"/>
+                    <method name="checkContactsButton"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
