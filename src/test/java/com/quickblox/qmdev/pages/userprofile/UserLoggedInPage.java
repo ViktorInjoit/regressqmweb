@@ -42,11 +42,21 @@ public class UserLoggedInPage extends BasePage {
     private final By CONTACTS_BUTTON = findById("contacts");
     private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@class='search btn btn_invite btn_invite_contacts btn_add']");
     private final By REJECT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_cancel j-requestCancel']");
-    private final By USER_ON_LEFT_SIDE = findByXPath("//*[@class='contact l-flexbox']");
+    private final By USER_ON_LEFT_SIDE = findByXPath("//*[@class='contact l-flexbox']"); //is common
 
     private final By SEND_REQUEST_TO_ADD_USER = findByXPath("//*[@class='send-request j-sendRequest']");
     private final By REQUEST_SENT = findByXPath("//span[text()='Request Sent']");
-    private final By SEND_REQUEST_AGAIN_BUTTON_CHAT = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again j-requestAgain']");
+    private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_SENDER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again j-requestAgain']");
+    private final By ACCEPT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_ok j-requestConfirm']");
+    private final By CHAT_FIELD = findById("textarea_58a5c0dca28f9adb35000210");
+
+    private final By SEND_MESSAGE_BUTTON = findByXPath("//*[@class='footer_btn l-input-buttons btn_input_send j-btn_input_send']");
+    private final By LAST_RECEIVED_MESSAGE = findByXPath("//*[@class='message l-flexbox l-flexbox_alignstretch without_border'][last()-1]");
+    private final By CONTEXT_MENU_DELETE_USER = findByXPath("//*[@class='deleteContact list-actions-action']");
+
+    private final By OK_POPUP_BUTTON = findById("deleteConfirm");
+//    private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_RECEIVER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again btn_request_again_delete j-requestAgain']");
+    private final By YOU_HAVE_BEEN_DELETED = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/h4[text()='You have been deleted from the contact list']");
 
     private final By QB_FOOTER_BUTTON = findByXPath("//*[@alt='QuickBlox']");
     private final By QB_GET_STARTED = findByXPath(".//*[@class='btn extra large']");
@@ -110,9 +120,49 @@ public class UserLoggedInPage extends BasePage {
 
     public void sendRequestAgain() {
         click(USER_ON_LEFT_SIDE);
-        click(SEND_REQUEST_AGAIN_BUTTON_CHAT);
+        click(SEND_REQUEST_AGAIN_BUTTON_CHAT_SENDER);
+        pause(1500);
     }
 
+    public void acceptRequest() {
+        click(ACCEPT_REQUEST_BUTTON);
+        pause(1500);
+    }
+
+    public void typeInChat() {
+        click(USER_ON_LEFT_SIDE);
+        type(CHAT_FIELD, "Hello for test user 2!");
+        click(SEND_MESSAGE_BUTTON);
+        pause(1500);
+    }
+
+    public void messageVerify() {
+        click(USER_ON_LEFT_SIDE);
+        waitUntilElementVisible(LAST_RECEIVED_MESSAGE);
+        softAssert.assertEquals(getText(LAST_RECEIVED_MESSAGE), "Hello for test user 2!");
+        softAssert.assertAll();
+    }
+
+    public void deleteUserFromContacts() {
+        click(USER_ON_LEFT_SIDE);
+        pause(1000);
+        new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE)).contextClick().perform();
+        pause(1000);
+        click(CONTEXT_MENU_DELETE_USER);
+        pause(1000);
+        click(OK_POPUP_BUTTON);
+        pause(1500);
+    }
+
+    public void verifyingDeletedUser() {
+        waitUntilElementVisible(YOU_HAVE_BEEN_DELETED);
+        softAssert.assertEquals(getText(YOU_HAVE_BEEN_DELETED), "You have been deleted from the contact list");
+        softAssert.assertAll();
+    }
+
+    /**
+     * Profile and settings
+     * */
     public UserLoggedInPage openProfile() {
         new Actions(driver).moveToElement(driver.findElement(USER_ICON), 39, 35).click().perform();
         click(USER_ICON);
