@@ -1,8 +1,7 @@
 package com.quickblox.qmdev.pages.userprofile;
 
 import com.quickblox.qmdev.pages.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
@@ -50,8 +49,9 @@ public class UserLoggedInPage extends BasePage {
     private final By ACCEPT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_ok j-requestConfirm']");
     private final By CHAT_FIELD = findById("textarea_58a5c0dca28f9adb35000210");
 
-    private final By SEND_MESSAGE_BUTTON = findByXPath("//*[@class='footer_btn l-input-buttons btn_input_send j-btn_input_send']");
-    private final By LAST_RECEIVED_MESSAGE = findByXPath("//*[@class='message l-flexbox l-flexbox_alignstretch without_border'][last()-1]");
+    private final By SEND_MESSAGE_BUTTON = findByXPath("//*[@data-balloon='Send message']");
+    private final By LAST_RECEIVED_MESSAGE_WITHOUT_BORDER = findByXPath("//*[@class='message l-flexbox l-flexbox_alignstretch without_border'][last()-1]");
+    private final By LAST_RECEIVED_MESSAGE = findByXPath("//*[@class='message l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/div[text()='Hello for test user 2!']");
     private final By CONTEXT_MENU_DELETE_USER = findByXPath("//*[@class='deleteContact list-actions-action']");
 
     private final By OK_POPUP_BUTTON = findById("deleteConfirm");
@@ -131,14 +131,18 @@ public class UserLoggedInPage extends BasePage {
 
     public void typeInChat() {
         click(USER_ON_LEFT_SIDE);
+
         type(CHAT_FIELD, "Hello for test user 2!");
+        pause(3000);
+        new Actions(driver).moveToElement(driver.findElement(SEND_MESSAGE_BUTTON)).click().perform();
         click(SEND_MESSAGE_BUTTON);
-        pause(1500);
+        pause(5000);
     }
 
     public void messageVerify() {
         click(USER_ON_LEFT_SIDE);
         waitUntilElementVisible(LAST_RECEIVED_MESSAGE);
+//        pause(2000);
         softAssert.assertEquals(getText(LAST_RECEIVED_MESSAGE), "Hello for test user 2!");
         softAssert.assertAll();
     }
@@ -155,6 +159,7 @@ public class UserLoggedInPage extends BasePage {
     }
 
     public void verifyingDeletedUser() {
+        click(USER_ON_LEFT_SIDE);
         waitUntilElementVisible(YOU_HAVE_BEEN_DELETED);
         softAssert.assertEquals(getText(YOU_HAVE_BEEN_DELETED), "You have been deleted from the contact list");
         softAssert.assertAll();

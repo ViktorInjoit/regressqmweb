@@ -43,14 +43,14 @@
             <class name="com.quickblox.qmdev.tests.UsersCollaboratingTest">
                 <parameter name="appname" value="collaborating"/>
                 <methods>
-                    <method name="user1SendsRequestToUser2"/>
-                    <method name="user2RejectsRequestFromUser1"/>
-                    <method name="user1SendsRequestToUser2Again"/>
-                    <method name="user2AcceptsRequestFromUser1"/>
+                    <!--<method name="user1SendsRequestToUser2"/>-->
+                    <!--<method name="user2RejectsRequestFromUser1"/>-->
+                    <!--<method name="user1SendsRequestToUser2Again"/>-->
+                    <!--<method name="user2AcceptsRequestFromUser1"/>-->
                     <method name="user1TypesInPrivateChatToUser2"/>
-                    <method name="user2AcceptsTheMessageFromUser1"/>
-                    <method name="user1DeletesUser2FromContacts"/>
-                    <method name="user2VerifiesDeletedUser1"/>
+                    <!--<method name="user2AcceptsTheMessageFromUser1"/>-->
+                    <!--<method name="user1DeletesUser2FromContacts"/>-->
+                    <!--<method name="user2VerifiesDeletedUser1"/>-->
                 </methods>
             </class>
         </classes>

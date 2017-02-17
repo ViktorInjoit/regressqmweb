@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class UsersCollaboratingTest extends BaseTest {
 
-    @Test (priority = 40)
+    @Test (priority = 40, enabled = true)
     public void user1SendsRequestToUser2() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
@@ -17,7 +17,7 @@ public class UsersCollaboratingTest extends BaseTest {
         userLoggedInPage.sendAddRequestToUser();
     }
 
-    @Test (priority = 41)
+    @Test (priority = 41, enabled = true)
     public void user2RejectsRequestFromUser1() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
@@ -27,7 +27,7 @@ public class UsersCollaboratingTest extends BaseTest {
         userLoggedInPage.rejectRequestToAddUser();
     }
 
-    @Test (priority = 42)
+    @Test (priority = 42, enabled = true)
     public void user1SendsRequestToUser2Again() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
@@ -37,7 +37,7 @@ public class UsersCollaboratingTest extends BaseTest {
         userLoggedInPage.sendRequestAgain();
     }
 
-    @Test (priority = 43)
+    @Test (priority = 43, enabled = true)
     public void user2AcceptsRequestFromUser1() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
@@ -57,7 +57,7 @@ public class UsersCollaboratingTest extends BaseTest {
         userLoggedInPage.typeInChat();
     }
 
-    @Test (priority = 45)
+    @Test (priority = 45, enabled = true)
     public void user2AcceptsTheMessageFromUser1() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
@@ -67,7 +67,7 @@ public class UsersCollaboratingTest extends BaseTest {
         userLoggedInPage.messageVerify();
     }
 
-    @Test (priority = 46)
+    @Test (priority = 46, enabled = true)
     public void user1DeletesUser2FromContacts() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
@@ -77,7 +77,7 @@ public class UsersCollaboratingTest extends BaseTest {
         userLoggedInPage.deleteUserFromContacts();
     }
 
-    @Test (priority = 47)
+    @Test (priority = 47, enabled = true)
     public void user2VerifiesDeletedUser1() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
