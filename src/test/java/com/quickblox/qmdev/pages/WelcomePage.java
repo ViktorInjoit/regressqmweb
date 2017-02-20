@@ -1,7 +1,5 @@
 package com.quickblox.qmdev.pages;
 
-import com.quickblox.qmdev.pages.users.TestUser1;
-import com.quickblox.qmdev.pages.users.TestUser2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,9 +14,6 @@ public class WelcomePage extends BasePage {
     }
 
     private SoftAssert softAssert = new SoftAssert();
-
-    private TestUser1 testUser1 = new TestUser1(testEmail1, testPass, tempPass);
-    private TestUser2 testUser2 = new TestUser2(testEmail2, testPass, tempPass);
 
 //    public final By HOME = findById("home");
 
@@ -78,11 +73,11 @@ public class WelcomePage extends BasePage {
      * Note: before using these methods invoke pressLogInByEmailOrSocial() this method first
      * </>*/
     public WelcomePage logInViaEmailUser1() {
-        clearAndType(EMAIL_FIELD, testUser1.getEmail());
-        clearAndType(PASS_FIELD, testUser1.getTestPass());
+        clearAndType(EMAIL_FIELD, testEmail1);
+        clearAndType(PASS_FIELD, testPass);
         click(LOG_IN);
         if (isElementPresented(LOG_IN_APPEARED_ERROR)) {
-            clearAndType(PASS_FIELD, testUser1.getTempPass());
+            clearAndType(PASS_FIELD, tempPass);
             click(LOG_IN);
             return this;
         }
@@ -90,25 +85,25 @@ public class WelcomePage extends BasePage {
     }
 
     public WelcomePage logInViaEmailUser2() {
-        clearAndType(EMAIL_FIELD, testUser2.getEmail());
-        clearAndType(PASS_FIELD, testUser2.getTestPass());
+        clearAndType(EMAIL_FIELD, testEmail2);
+        clearAndType(PASS_FIELD, testPass);
         click(LOG_IN);
         return new WelcomePage(driver, wait);
     }
 
-//    public WelcomePage logInViaEmailUser3() {
-//        clearAndType(EMAIL_FIELD, testEmail3);
-//        clearAndType(PASS_FIELD, testPass);
-//        click(LOG_IN);
-//        return new WelcomePage(driver, wait);
-//    }
-//
-//    public WelcomePage logInViaEmailUser4() {
-//        clearAndType(EMAIL_FIELD, testEmail4);
-//        clearAndType(PASS_FIELD, testPass);
-//        click(LOG_IN);
-//        return new WelcomePage(driver, wait);
-//    }
+    public WelcomePage logInViaEmailUser3() {
+        clearAndType(EMAIL_FIELD, testEmail3);
+        clearAndType(PASS_FIELD, testPass);
+        click(LOG_IN);
+        return new WelcomePage(driver, wait);
+    }
+
+    public WelcomePage logInViaEmailUser4() {
+        clearAndType(EMAIL_FIELD, testEmail4);
+        clearAndType(PASS_FIELD, testPass);
+        click(LOG_IN);
+        return new WelcomePage(driver, wait);
+    }
 
     /**<p>Log in via facebook
      * Note: before using this method invoke pressLogInByEmailOrSocial() this method first
@@ -130,7 +125,7 @@ public class WelcomePage extends BasePage {
      * </p>*/
     public void negativeLogInViaEmailWithEmptyPasswordField() {
         //with empty password field
-        clearAndType(EMAIL_FIELD, testUser1.getEmail());
+        clearAndType(EMAIL_FIELD, testEmail1);
         clearAndType(PASS_FIELD, "");
         click(LOG_IN);
         softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "is required");
@@ -138,7 +133,7 @@ public class WelcomePage extends BasePage {
     }
 
     public void negativeLogInViaEmailWith3CharactersPassword() {
-        clearAndType(EMAIL_FIELD, testUser1.getEmail());
+        clearAndType(EMAIL_FIELD, testEmail1);
         clearAndType(PASS_FIELD, "123");
         click(LOG_IN);
         softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "Error");
@@ -146,7 +141,7 @@ public class WelcomePage extends BasePage {
     }
 
     public void negativeLogInViaEmailwith8CharactersPassword() {
-        clearAndType(EMAIL_FIELD, testUser1.getEmail());
+        clearAndType(EMAIL_FIELD, testEmail1);
         clearAndType(PASS_FIELD, "12345670");
         click(LOG_IN);
         softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "The email or password is incorrect");
@@ -154,7 +149,7 @@ public class WelcomePage extends BasePage {
     }
 
     public void negativeLogInViaEmailWith10CharactersPassword() {
-        clearAndType(EMAIL_FIELD, testUser1.getEmail());
+        clearAndType(EMAIL_FIELD, testEmail1);
         clearAndType(PASS_FIELD, "1234567890");
         click(LOG_IN);
         softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "The email or password is incorrect");

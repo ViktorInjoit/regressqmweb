@@ -41,18 +41,27 @@
                 <!--</methods>-->
             <!--</class>-->
             <class name="com.quickblox.qmdev.tests.UsersCollaboratingTest">
-                <parameter name="appname" value="collaborating"/>
+                <parameter name="appname" value="twouserscollaborating"/>
                 <methods>
-                    <!--<method name="user1SendsRequestToUser2"/>-->
-                    <!--<method name="user2RejectsRequestFromUser1"/>-->
-                    <!--<method name="user1SendsRequestToUser2Again"/>-->
-                    <!--<method name="user2AcceptsRequestFromUser1"/>-->
+                    <method name="user1SendsRequestToUser2"/>
+                    <method name="user2RejectsRequestFromUser1"/>
+                    <method name="user1SendsRequestToUser2Again"/>
+                    <method name="user2AcceptsRequestFromUser1"/>
                     <method name="user1TypesInPrivateChatToUser2"/>
-                    <!--<method name="user2AcceptsTheMessageFromUser1"/>-->
-                    <!--<method name="user1DeletesUser2FromContacts"/>-->
-                    <!--<method name="user2VerifiesDeletedUser1"/>-->
+                    <method name="user2AcceptsTheMessageFromUser1"/>
+                    <method name="user1DeletesUser2FromContacts"/>
+                    <method name="user2VerifiesDeletedUser1"/>
                 </methods>
             </class>
+            <!--<class name="com.quickblox.qmdev.tests.PublicChatsTest">-->
+                <!--<parameter name="appname" value="publicchats"/>-->
+                <!--<methods>-->
+                    <!--<method name="user2LogInsAndSendsRequestsToAdd"/>-->
+                    <!--<method name="user3AcceptsRequestFromUser2"/>-->
+                    <!--<method name="user4AcceptsRequestFromUser2"/>-->
+                    <!--<method name="user2CreatesChatWithUsers3And4"/>-->
+                <!--</methods>-->
+            <!--</class>-->
         </classes>
     </test>
 </suite>
