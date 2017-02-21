@@ -61,7 +61,7 @@ public class UserLoggedInPage extends BasePage {
 
     public void searchingForFriendsRedButton() {
         click(SEARCH_FOR_FRIENDS_RED_BUTTON);
-        new Actions(driver).moveToElement(driver.findElement(SEARCH_FIELD), 210, 15).click().perform();
+        new Actions(driver).moveToElement(driver.findElement(SEARCH_FIELD)).click().perform();
         click(SEARCH_FIELD);
     }
 

@@ -45,6 +45,7 @@ public class UserChats extends BasePage {
      */
     public void sendAddRequestToUser() {
         click(SEND_REQUEST_TO_ADD_USER);
+        pause(1000);
     }
 
     public void rejectRequestToAddUser() {
@@ -96,19 +97,11 @@ public class UserChats extends BasePage {
      * Public chats collaborating
      * </p>
      */
-    public void searchForUsers3And4AndSendRequestsToThem() {
 
-    }
-
-    public void sendRequestToUser() {
-        click(SEND_REQUEST_TO_ADD_USER);
-        pause(1000);
-    }
-
-    public void user3AcceptsRequest() {
-        click(ACCEPT_REQUEST_BUTTON);
-        pause(2000);
-    }
+//    public void user3AcceptsRequest() {
+//        click(ACCEPT_REQUEST_BUTTON);
+//        pause(2000);
+//    }
 
     public void user4Acceptsrequest() {
         click(ACCEPT_REQUEST_BUTTON);

@@ -20,10 +20,12 @@ public class SearchTest extends BaseTest {
     @Test(priority = 20, enabled = true)
     public void searchTopLeftField() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         userLoggedInPage.searchingForUsersFieldOnPage();
         if (driver.findElement(SORRY_MESSAGE).isDisplayed()) {
             click(GLOBAL_SEARCH_BLUE_BUTTON);
@@ -38,14 +40,17 @@ public class SearchTest extends BaseTest {
     @Test(priority = 21, dependsOnMethods = "searchTopLeftField", enabled = true)
     public void searchForFriendsRedButtonClick() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         userLoggedInPage.searchingForFriendsRedButton();
         userLoggedInPage.searchingforUser2();
         userLoggedInPage.cleanSearchField();
         userLoggedInPage.searchingforUser2();
+
         softAssert.assertEquals(getText(FOUND_USER), "Test User 2");
         refreshPage();
         softAssert.assertAll();
@@ -54,10 +59,12 @@ public class SearchTest extends BaseTest {
     @Test(priority = 22, dependsOnMethods = "searchTopLeftField", enabled = true)
     public void checkContactsButton() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         userLoggedInPage.searchingContactsButton();
         softAssert.assertEquals(getText(FOUND_USER), "Test User 2");
         userLoggedInPage.cleanSearchField();
