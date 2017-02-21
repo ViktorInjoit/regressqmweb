@@ -10,6 +10,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class Wrappers {
 
+    public final By REQUEST_SENT = findByXPath("//span[text()='Request Sent']");
+    public final By LAST_RECEIVED_MESSAGE = findByXPath("//*[@class='message l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/div[text()='Hello for test user!']");
+    public final By YOU_HAVE_BEEN_DELETED = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/h4[text()='You have been deleted from the contact list']");
+
+    public final By SORRY_MESSAGE = findByXPath("//*[@id='searchList']/div[@class='note l-flexbox l-flexbox_column']/span[text()='Sorry...']");
+    public final By FOUND_USER = findByXPath("//*[@class='l-flexbox_inline']/span[@data-id='23558117']");
+
+    public final By CHANGE_PASSWORD_SUCCESS_MESSAGE = findByXPath("//*[@class='userProfile-success']");
+    public final By OLD_PASSWORD_IS_INCORRECT_MESSAGE = findByXPath("//*[@id='popupPassword']/div[text()='Old password is incorrect']");
+
+    public final By GLOBAL_SEARCH_BLUE_BUTTON = findByXPath("//*[@class='search btn btn_search without_M']");
+
     public abstract WebDriver getWebDriver();
 
     public abstract WebDriverWait getWebDriverWait();
@@ -41,10 +53,6 @@ public abstract class Wrappers {
 
     public void waitUntilElementNotPresented(By locator) {
         getWebDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
-    }
-
-    public void waitUntilElementVisible(By locator) {
-        getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public int getCountOfCssElements(String locator) {
@@ -152,4 +160,6 @@ public abstract class Wrappers {
     protected void goBack() {
         getWebDriver().navigate().back();
     }
+
+
 }

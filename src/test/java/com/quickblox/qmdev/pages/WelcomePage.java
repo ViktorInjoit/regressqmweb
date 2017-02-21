@@ -42,9 +42,6 @@ public class WelcomePage extends BasePage {
     private final By PHONE_NUMBER_APPEARED_ERROR = findByXPath(".//*[@class='input-error']");
     private final By LOG_IN_APPEARED_ERROR = findByXPath("//*[@class='text_error is-error']");
 
-    private final String LOGIN_FACEBOOK = "injoittest@gmail.com";
-    private final String PASSWORD_FACEBOOK = "injoit00";
-
     public void visit() {
         open(currentDomain);
     }
@@ -57,7 +54,7 @@ public class WelcomePage extends BasePage {
         driver.switchTo().window(tabs.get(1));
         driver.switchTo().frame(driver.findElement(findByCss(".digits-embed")));
         click(findByXPath("//button[@type='submit']"));
-        waitUntilElementVisible(PHONE_NUMBER_APPEARED_ERROR);
+        waitUntilElementLocated(PHONE_NUMBER_APPEARED_ERROR);
         driver.close();
         driver.switchTo().window(tabs.get(0));
     }
@@ -88,21 +85,21 @@ public class WelcomePage extends BasePage {
         clearAndType(EMAIL_FIELD, testEmail2);
         clearAndType(PASS_FIELD, testPass);
         click(LOG_IN);
-        return new WelcomePage(driver, wait);
+        return this;
     }
 
     public WelcomePage logInViaEmailUser3() {
         clearAndType(EMAIL_FIELD, testEmail3);
         clearAndType(PASS_FIELD, testPass);
         click(LOG_IN);
-        return new WelcomePage(driver, wait);
+        return this;
     }
 
     public WelcomePage logInViaEmailUser4() {
         clearAndType(EMAIL_FIELD, testEmail4);
         clearAndType(PASS_FIELD, testPass);
         click(LOG_IN);
-        return new WelcomePage(driver, wait);
+        return this;
     }
 
     /**<p>Log in via facebook
@@ -113,12 +110,14 @@ public class WelcomePage extends BasePage {
         pause(1000);
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
+        String LOGIN_FACEBOOK = "injoittest@gmail.com";
         clearAndType(LOGIN_FORM_FACEBOOK, LOGIN_FACEBOOK);
+        String PASSWORD_FACEBOOK = "injoit00";
         clearAndType(PASSWORD_FORM_FACEBOOK, PASSWORD_FACEBOOK);
         click(SUBMIT_BUTTON_FACEBOOK);
         pause(3000);
         driver.switchTo().window(tabs.get(0));
-        return new WelcomePage(driver, wait);
+        return this;
     }
 
     /**<p>Negative check log in via email
@@ -166,7 +165,7 @@ public class WelcomePage extends BasePage {
         driver.switchTo().window(tabs.get(1));
         waitUntilElementToBeClickable(QB_GET_STARTED);
         click(QB_GET_STARTED);
-        waitUntilElementVisible(QB_START_BUILDING);
+        waitUntilElementLocated(QB_START_BUILDING);
         driver.close();
         driver.switchTo().window(tabs.get(0));
     }

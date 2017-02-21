@@ -5,9 +5,18 @@ import com.quickblox.qmdev.pages.userprofile.Profile;
 import com.quickblox.qmdev.pages.userprofile.Settings;
 import com.quickblox.qmdev.pages.userprofile.UserLoggedInPage;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class UserOptionsTest extends BaseTest {
+
+    private SoftAssert softAssert;
+
+    @BeforeClass
+    public void initializations() {
+        softAssert = new SoftAssert();
+    }
 
     @Test(priority = 30, enabled = true)
     public void checkProfile() {
@@ -92,6 +101,9 @@ public class UserOptionsTest extends BaseTest {
         userLoggedInPage.openProfile();
         Profile profile = new Profile(driver, wait);
         profile.changePassword();
+        softAssert.assertEquals(getText(CHANGE_PASSWORD_SUCCESS_MESSAGE), "Your password has been successfully changed");
+        refreshPage();
+        softAssert.assertAll();
     }
 
     @Test(priority = 37, dependsOnMethods = "checkProfile", enabled = true)
@@ -104,6 +116,9 @@ public class UserOptionsTest extends BaseTest {
         userLoggedInPage.openProfile();
         Profile profile = new Profile(driver, wait);
         profile.changePasswordNegative();
+        softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");
+        refreshPage();
+        softAssert.assertAll();
     }
 
     @AfterClass(enabled = true)
@@ -131,6 +146,9 @@ public class UserOptionsTest extends BaseTest {
         userLoggedInPage.openProfile();
         Profile profile = new Profile(driver, wait);
         profile.rollbackAfterEditingPassword();
+        if (isElementPresented(OLD_PASSWORD_IS_INCORRECT_MESSAGE)) {
+            softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");
+        }
         tearDown();
     }
 }

@@ -2,6 +2,7 @@ package com.quickblox.qmdev.tests;
 
 import com.quickblox.qmdev.initializations.Wrappers;
 import com.quickblox.qmdev.utils.TestListener;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
 public abstract class BaseTest extends Wrappers {
+
+
 
     private static String currentBrowser = "chrome";
     private static String currentDomain = "https://qmdev.quickblox.com/";

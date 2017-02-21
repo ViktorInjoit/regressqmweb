@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 
 import static com.quickblox.qmdev.tests.BaseTest.getUniqueId;
 import static com.quickblox.qmdev.tests.BaseTest.getUniqueValue;
@@ -16,8 +15,6 @@ public class Profile extends BasePage {
         super(driver, wait);
     }
 
-    private SoftAssert softAssert = new SoftAssert();
-
     private final By USER_NAME = findByXPath("//*[@class='userProfile-filename-wrap']/input[@placeholder='Your name']");
     private final By STATUS_FIELD = findByXPath("//*[@class='userProfile-status-field userProfile-edit']");
     private final By PHONE_NUMBER_FIELD = findByXPath("//*[@class='userProfile-phone editable-profile without_M']");
@@ -26,10 +23,10 @@ public class Profile extends BasePage {
     private final By OLD_PASSWORD = findById("old-password");
     private final By NEW_PASSWORD = findById("new-password");
     private final By CHANGE_PASSWORD_BUTTON = findByXPath("//*[@class='btn btn_popup btn_popup_changepass without_M']");
-    private final By OLD_PASSWORD_IS_INCORRECT_MESSAGE = findByXPath("//*[@id='popupPassword']/div[text()='Old password is incorrect']");
 
 
-    private final By SUCCESS_MESSAGE = findByXPath("//*[@class='userProfile-success']");
+
+//    public final By CHANGE_PASSWORD_SUCCESS_MESSAGE = findByXPath("//*[@class='userProfile-success']");
 
     private String testUserName = "Test User " + getUniqueValue();
     private String testStatus = "My test status" + getUniqueValue();
@@ -67,11 +64,9 @@ public class Profile extends BasePage {
             clearAndType(OLD_PASSWORD, tempPass);
             clearAndType(NEW_PASSWORD, testPass);
             click(CHANGE_PASSWORD_BUTTON);
+            waitUntilElementLocated(USER_NAME);
         }
-        waitUntilElementVisible(USER_NAME);
-        softAssert.assertEquals(getText(SUCCESS_MESSAGE), "Your password has been successfully changed");
-//        softAssert.assertAll();
-        refreshPage();
+        waitUntilElementLocated(USER_NAME);
         return this;
     }
 
@@ -80,9 +75,6 @@ public class Profile extends BasePage {
         type(OLD_PASSWORD, "sdfsdfsdf");
         type(NEW_PASSWORD, "qweqweqwe");
         click(CHANGE_PASSWORD_BUTTON);
-        softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");
-        softAssert.assertAll();
-        refreshPage();
     }
 
     public void rollbackAfterEditingPassword() {
@@ -90,8 +82,6 @@ public class Profile extends BasePage {
         type(OLD_PASSWORD, tempPass);
         type(NEW_PASSWORD, testPass);
         click(CHANGE_PASSWORD_BUTTON);
-        if (isElementPresented(OLD_PASSWORD_IS_INCORRECT_MESSAGE)) {
-            softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");
-        }
+
     }
 }

@@ -32,41 +32,14 @@ public class UserLoggedInPage extends BasePage {
 
     private final By LEFT_TOP_SEARCH = findByXPath("//*[@id='searchContacts']/input[@class='form-input-search without_M']");
     private final By SEARCH_FOR_FRIENDS_RED_BUTTON = findByXPath("//*[@class='btn-icon btn-icon_invite']");
-    private final By FOUND_USER = findByXPath("//*[@class='l-flexbox_inline']/span[@data-id='23558117']");
-    private final By SORRY_MESSAGE = findByXPath("//*[@id='searchList']/div[@class='note l-flexbox l-flexbox_column']/span[text()='Sorry...']");
-    private final By GLOBAL_SEARCH_BLUE_BUTTON = findByXPath("//*[@class='search btn btn_search without_M']");
+
     private final By SEARCH_FIELD = findByXPath("//*[@id='globalSearch']/input[@class='form-input-search without_M']"); //is common
     private final By CLEAN_SEARCH_FIELD_BUTTON = findByXPath("//*[@id='globalSearch']/button[@class='clean-button j-clean-button']"); //is common
 
     private final By CONTACTS_BUTTON = findById("contacts");
     private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@class='search btn btn_invite btn_invite_contacts btn_add']");
-    private final By REJECT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_cancel j-requestCancel']");
 
-    private final By USER_ON_LEFT_SIDE = findByXPath("//*[@class='contact l-flexbox']"); //is common
-    private final By USER_ON_LEFT_SIDE_TEST_USER_3 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 3']");
-    private final By USER_ON_LEFT_SIDE_TEST_USER_4 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 4']");
-    private final By CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER = findByXPath("//*[@alt='Create a new group chat']");
-    private final By SELECT_ONE_MORE_USER_FOR_CHAT = findByXPath("//*[@class='form-checkbox']");
-    private final By CREATE_PRIVATE_CHAT = findByXPath("//*[@class='btn btn_popup btn_popup_group']");
-    private final By PUBLIC_CHAT = findByXPath("//*[@class='contact l-flexbox']/div/div/span[text()='Test User 2, Test User 3, Test User 4']");
-    private final By DELETE_CHAT = findByXPath("//*[@alt='Remove chat']");
-
-    private final By SEND_REQUEST_TO_ADD_USER = findByXPath("//*[@class='send-request j-sendRequest']"); //is common
-    private final By REQUEST_SENT = findByXPath("//span[text()='Request Sent']");
-//    private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_SENDER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again j-requestAgain']");
-    private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_SENDER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again j-requestAgain']");
-    private final By ACCEPT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_ok j-requestConfirm']");
-    private final By CHAT_FIELD = findByClass("l-message j-message"); //is common
-
-    private final By SEND_MESSAGE_BUTTON = findByXPath("//*[@data-balloon='Send message']"); //is common
-//    private final By LAST_RECEIVED_MESSAGE_WITHOUT_BORDER = findByXPath("//*[@class='message l-flexbox l-flexbox_alignstretch without_border'][last()-1]");
-    private final By LAST_RECEIVED_MESSAGE = findByXPath("//*[@class='message l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/div[text()='Hello for test user!']");
-    private final By CONTEXT_MENU_DELETE_USER = findByXPath("//*[@class='deleteContact list-actions-action']");
-
-    private final By OK_POPUP_BUTTON = findById("deleteContactConfirm");
-//    private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_RECEIVER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again btn_request_again_delete j-requestAgain']");
-    private final By YOU_HAVE_BEEN_DELETED = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/h4[text()='You have been deleted from the contact list']");
-
+    // footer buttons
     private final By QB_FOOTER_BUTTON = findByXPath("//*[@alt='QuickBlox']");
     private final By QB_GET_STARTED = findByXPath(".//*[@class='btn extra large']");
     private final By QB_START_BUILDING = findByXPath(".//*[@id='signup-submit']");
@@ -81,168 +54,46 @@ public class UserLoggedInPage extends BasePage {
      *     User search
      * </p>
      * */
-    public void searchForFriendsRedButton() {
+
+    public void cleanSearchField() {
+        click(CLEAN_SEARCH_FIELD_BUTTON);
+    }
+
+    public void searchingForFriendsRedButton() {
         click(SEARCH_FOR_FRIENDS_RED_BUTTON);
         new Actions(driver).moveToElement(driver.findElement(SEARCH_FIELD), 210, 15).click().perform();
         click(SEARCH_FIELD);
-        clearAndType(SEARCH_FIELD, "Test User 2");
-        click(CLEAN_SEARCH_FIELD_BUTTON);
-        clearAndType(SEARCH_FIELD, "Test User 2");
-        softAssert.assertEquals(getText(FOUND_USER),"Test User 2");
-        softAssert.assertAll();
     }
 
-    /**<p>
-     * If no users appears on contact list then the global search should appears
-     * </p>*/
-    public void searchFieldOnPage() {
+    // If no users appears on contact list then the global search should appears
+    public void searchingForUsersFieldOnPage() {
         waitUntilElementToBeClickable(LEFT_TOP_SEARCH);
         new Actions(driver).moveToElement(driver.findElement(LEFT_TOP_SEARCH), 149, 15).click().perform();
         type(LEFT_TOP_SEARCH, "Test User 2");
-        if (driver.findElement(SORRY_MESSAGE).isDisplayed()) {
-            click(GLOBAL_SEARCH_BLUE_BUTTON);
-            waitUntilElementToBeClickable(FOUND_USER);
-            new Actions(driver).moveToElement(driver.findElement(findByXPath("//*[@class='l-flexbox_inline']")), 210, 15).click().perform();
-            softAssert.assertEquals(getText(FOUND_USER),"Test User 2");
-        } else {
-            //TODO logic for appeared contacts
-        }
-        softAssert.assertAll();
     }
 
-    public void searchContactsButton() {
+    public void searchingContactsButton() {
         click(CONTACTS_BUTTON);
         click(SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON);
         type(SEARCH_FIELD, "test user");
-        softAssert.assertEquals(getText(FOUND_USER), "Test User 2");
-        softAssert.assertAll();
-        click(CLEAN_SEARCH_FIELD_BUTTON);
-        refreshPage();
     }
 
-    /**
-     * Requests and collaborating
-     * */
-    public void sendAddRequestToUser() {
-        click(SEND_REQUEST_TO_ADD_USER);
-        softAssert.assertEquals(getText(REQUEST_SENT), "Request Sent");
-        softAssert.assertAll();
+    public void searchingforUser2() {
+//        click(SEARCH_FOR_FRIENDS_RED_BUTTON);
+//        new Actions(driver).moveToElement(driver.findElement(SEARCH_FIELD), 210, 15).click().perform();
+//        click(SEARCH_FIELD);
+        clearAndType(SEARCH_FIELD, "Test User 2");
     }
 
-    public void rejectRequestToAddUser() {
-        click(REJECT_REQUEST_BUTTON);
+    // depends on searchingContactsButton()
+    public void searchingForUser3() {
+//        click(CONTACTS_BUTTON);
+//        click(SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON);
+        clearAndType(SEARCH_FIELD, "test user 3");
     }
 
-    public void sendRequestAgain() {
-        click(USER_ON_LEFT_SIDE);
-        click(SEND_REQUEST_AGAIN_BUTTON_CHAT_SENDER);
-        pause(1500);
-    }
-
-    public void acceptRequest() {
-        click(ACCEPT_REQUEST_BUTTON);
-        pause(3000);
-    }
-
-    public void typeInChat() {
-        click(USER_ON_LEFT_SIDE);
-        type(CHAT_FIELD, "Hello for test user!");
-        pause(3000);
-        new Actions(driver).moveToElement(driver.findElement(SEND_MESSAGE_BUTTON)).click().perform();
-        click(SEND_MESSAGE_BUTTON);
-        pause(5000);
-    }
-
-    public void messageVerify() {
-        click(USER_ON_LEFT_SIDE);
-        waitUntilElementVisible(LAST_RECEIVED_MESSAGE);
-        softAssert.assertEquals(getText(LAST_RECEIVED_MESSAGE), "Hello for test user!");
-        softAssert.assertAll();
-    }
-
-    public void deleteUserFromContacts() {
-        click(USER_ON_LEFT_SIDE);
-        pause(1000);
-        new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE)).contextClick().perform();
-        pause(1000);
-        click(CONTEXT_MENU_DELETE_USER);
-        pause(1000);
-        click(OK_POPUP_BUTTON);
-        pause(1500);
-    }
-
-    public void verifyingDeletedUser() {
-        click(USER_ON_LEFT_SIDE);
-        waitUntilElementVisible(YOU_HAVE_BEEN_DELETED);
-        softAssert.assertEquals(getText(YOU_HAVE_BEEN_DELETED), "You have been deleted from the contact list");
-        softAssert.assertAll();
-    }
-
-    /**
-     * <p>
-     *     Public chats collaborating
-     * </p>
-     * */
-    public void searchForUsers3And4AndSendRequestsToThem() {
-        click(CONTACTS_BUTTON);
-        click(SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON);
-        type(SEARCH_FIELD, "test user 3");
-        click(SEND_REQUEST_TO_ADD_USER);
-        pause(1000);
+    public void searchignForUser4() {
         clearAndType(SEARCH_FIELD, "test user 4");
-        click(SEND_REQUEST_TO_ADD_USER);
-        pause(1000);
-    }
-
-    public void user3AcceptsRequest() {
-        click(ACCEPT_REQUEST_BUTTON);
-        pause(2000);
-    }
-
-    public void user4Acceptsrequest() {
-        click(ACCEPT_REQUEST_BUTTON);
-        pause(2000);
-    }
-
-    public void user2CreatesChatWithUser3And4() {
-        click(USER_ON_LEFT_SIDE_TEST_USER_3);
-        new Actions(driver).moveToElement(driver.findElement(CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER)).click().perform();
-        click(CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER);
-        click(SELECT_ONE_MORE_USER_FOR_CHAT);
-        click(CREATE_PRIVATE_CHAT);
-        pause(4000);
-    }
-
-    public void user2TypesInChat() {
-        click(PUBLIC_CHAT);
-        type(CHAT_FIELD, "Hey everybody!");
-        click(SEND_MESSAGE_BUTTON);
-    }
-
-    public void user3TypesInChat() {
-        type(CHAT_FIELD, "Hello!");
-        click(SEND_MESSAGE_BUTTON);
-    }
-
-    public void user4TypesInChatAndDeletesChat() {
-        type(CHAT_FIELD, "I am fourth user");
-        click(SEND_MESSAGE_BUTTON);
-    }
-
-    public void user2DeletesChatAndContacts() {
-        click(PUBLIC_CHAT);
-        click(DELETE_CHAT);
-        new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_3)).contextClick().perform();
-        click(CONTEXT_MENU_DELETE_USER);
-        click(OK_POPUP_BUTTON);
-    }
-
-    public void user3DeletesChat() {
-
-    }
-
-    public void user4DeletesChat() {
-
     }
 
     /**
@@ -265,6 +116,10 @@ public class UserLoggedInPage extends BasePage {
         click(CLOSE_SETTINGS_POPUP);
     }
 
+
+    /**
+     * Checking footer buttons
+     * */
     public void checkingQBButton() {
         click(QB_FOOTER_BUTTON);
         pause(1000);
@@ -272,7 +127,7 @@ public class UserLoggedInPage extends BasePage {
         driver.switchTo().window(tabs.get(1));
         waitUntilElementToBeClickable(QB_GET_STARTED);
         click(QB_GET_STARTED);
-        waitUntilElementVisible(QB_START_BUILDING);
+        waitUntilElementLocated(QB_START_BUILDING);
         driver.close();
         driver.switchTo().window(tabs.get(0));
     }
@@ -299,6 +154,9 @@ public class UserLoggedInPage extends BasePage {
         driver.switchTo().window(tabs2.get(0));
     }
 
+    /**
+     * Log outs
+     * */
     public void logOutByEmail() {
         click(USER_ICON);
         click(LOG_OUT);
