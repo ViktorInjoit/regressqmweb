@@ -20,7 +20,7 @@ public class PublicChatsTest extends BaseTest {
 //        softAssert = new SoftAssert();
 //    }
 
-    @Test (priority = 60, enabled = true)
+    @Test (priority = 60, enabled = false)
     public void user2LogInsAndSendsRequestsToAddForUsers3And4() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
@@ -37,7 +37,7 @@ public class PublicChatsTest extends BaseTest {
         userChats.sendAddRequestToUser();
     }
 
-    @Test (priority = 61, enabled = true)
+    @Test (priority = 61, enabled = false)
     public void user3AcceptsRequestFromUser2() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserChats userChats = new UserChats(driver, wait);
@@ -49,7 +49,7 @@ public class PublicChatsTest extends BaseTest {
         userChats.acceptRequest();
     }
 
-    @Test (priority = 62, enabled = true)
+    @Test (priority = 62, enabled = false)
     public void user4AcceptsRequestFromUser2() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserChats userChats = new UserChats(driver, wait);

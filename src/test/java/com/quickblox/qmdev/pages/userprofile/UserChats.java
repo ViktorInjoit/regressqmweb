@@ -17,11 +17,11 @@ public class UserChats extends BasePage {
     private final By USER_ON_LEFT_SIDE_TEST_USER_4 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 4']");
 
     private final By CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER = findByXPath("//*[@alt='Create a new group chat']");
-    private final By SELECT_ONE_MORE_USER_FOR_CHAT = findByXPath("//*[@class='contact l-flexbox']");
-    private final By CREATE_GROUP_CHAT_BUTTON = findByXPath("//*[@alt='Create a new group chat']");
+    private final By SELECT_ONE_MORE_USER_FOR_CHAT = findByClass("form-checkbox");
+    private final By CREATE_GROUP_CHAT_BUTTON = findByXPath("//*[@class='btn btn_popup btn_popup_group']");
     private final By PUBLIC_CHAT = findByXPath("//*[@class='contact l-flexbox']/div/div/span[text()='Test User 2, Test User 3, Test User 4']");
     private final By DELETE_CHAT_BUTTON = findByXPath("//*[@alt='Leave and remove chat']");
-    private final By OK_POPUP_BUTTON_CHAT = findById("deleteChatConfirm");
+    private final By OK_POPUP_BUTTON_PUBLIC_CHAT = findById("deleteChatConfirm");
 
     private final By SEND_REQUEST_TO_ADD_USER = findByXPath("//*[@class='send-request j-sendRequest']"); //is common
 
@@ -100,15 +100,6 @@ public class UserChats extends BasePage {
      * </p>
      */
 
-//    public void user3AcceptsRequest() {
-//        click(ACCEPT_REQUEST_BUTTON);
-//        pause(2000);
-//    }
-
-//    public void user4AcceptsRequest() {
-//        click(ACCEPT_REQUEST_BUTTON);
-//        pause(2000);
-//    }
     public void user2CreatesChatWithUser3And4() {
         click(USER_ON_LEFT_SIDE_TEST_USER_3);
         new Actions(driver).moveToElement(driver.findElement(CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER)).click().perform();
@@ -130,7 +121,7 @@ public class UserChats extends BasePage {
     public void deleteChat() {
         click(PUBLIC_CHAT);
         click(DELETE_CHAT_BUTTON);
-        click(OK_POPUP_BUTTON_CHAT);
+        click(OK_POPUP_BUTTON_PUBLIC_CHAT);
     }
 
     public void removeUser3FromFriendList() {

@@ -103,7 +103,7 @@ public abstract class BaseTest extends Wrappers {
     }
 
     private WebDriverWait setWebDriverWait() {
-        return new WebDriverWait(driver, 20);
+        return new WebDriverWait(driver, 15);
     }
 
     public static String getUniqueValue(){
