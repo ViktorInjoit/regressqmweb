@@ -73,7 +73,7 @@ public class UsersCollaboratingTest extends BaseTest {
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmailUser1();
         UserChats userChats = new UserChats(driver, wait);
-        userChats.typeInChat();
+        userChats.typeInPrivateChat();
     }
 
     @Test (priority = 45, enabled = true)

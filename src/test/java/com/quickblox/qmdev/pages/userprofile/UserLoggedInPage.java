@@ -37,7 +37,8 @@ public class UserLoggedInPage extends BasePage {
     private final By CLEAN_SEARCH_FIELD_BUTTON = findByXPath("//*[@id='globalSearch']/button[@class='clean-button j-clean-button']"); //is common
 
     private final By CONTACTS_BUTTON = findById("contacts");
-    private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@class='search btn btn_invite btn_invite_contacts btn_add']");
+//    private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@class='search btn btn_invite btn_invite_contacts btn_add']");
+    private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@alt='invite']");
 
     // footer buttons
     private final By QB_FOOTER_BUTTON = findByXPath("//*[@alt='QuickBlox']");
@@ -75,20 +76,20 @@ public class UserLoggedInPage extends BasePage {
     public void searchingContactsButton() {
         click(CONTACTS_BUTTON);
         click(SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON);
+//        if (!isElementPresented(SEARCH_FIELD)) {
+//            click(findByXPath("//*[@alt='invite']"));
+//            type(SEARCH_FIELD, "test user");
+//        }
         type(SEARCH_FIELD, "test user");
     }
 
+    // depends on searchingContactsButton()
     public void searchingforUser2() {
-//        click(SEARCH_FOR_FRIENDS_RED_BUTTON);
-//        new Actions(driver).moveToElement(driver.findElement(SEARCH_FIELD), 210, 15).click().perform();
-//        click(SEARCH_FIELD);
         clearAndType(SEARCH_FIELD, "Test User 2");
     }
 
     // depends on searchingContactsButton()
     public void searchingForUser3() {
-//        click(CONTACTS_BUTTON);
-//        click(SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON);
         clearAndType(SEARCH_FIELD, "test user 3");
     }
 

@@ -53,15 +53,17 @@
                     <!--<method name="user2VerifiesDeletedUser1"/>-->
                 <!--</methods>-->
             <!--</class>-->
-            <!--<class name="com.quickblox.qmdev.tests.PublicChatsTest">-->
-                <!--<parameter name="appname" value="publicchats"/>-->
-                <!--<methods>-->
-                    <!--<method name="user2LogInsAndSendsRequestsToAdd"/>-->
-                    <!--<method name="user3AcceptsRequestFromUser2"/>-->
-                    <!--<method name="user4AcceptsRequestFromUser2"/>-->
-                    <!--<method name="user2CreatesChatWithUsers3And4"/>-->
-                <!--</methods>-->
-            <!--</class>-->
+            <class name="com.quickblox.qmdev.tests.PublicChatsTest">
+                <parameter name="appname" value="publicchats"/>
+                <methods>
+                    <method name="user2LogInsAndSendsRequestsToAdd"/>
+                    <method name="user3AcceptsRequestFromUser2"/>
+                    <method name="user4AcceptsRequestFromUser2"/>
+                    <method name="user2CreatesPublicChatWithUsers3And4"/>
+                    <method name="user3Types"/>
+                    <method name="user4Types"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

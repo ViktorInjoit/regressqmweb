@@ -23,7 +23,6 @@ public abstract class Wrappers {
     public final By GLOBAL_SEARCH_BLUE_BUTTON = findByXPath("//*[@class='search btn btn_search without_M']");
 
     public abstract WebDriver getWebDriver();
-
     public abstract WebDriverWait getWebDriverWait();
 
 

@@ -17,17 +17,17 @@ public class UserChats extends BasePage {
     private final By USER_ON_LEFT_SIDE_TEST_USER_4 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 4']");
 
     private final By CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER = findByXPath("//*[@alt='Create a new group chat']");
-    private final By SELECT_ONE_MORE_USER_FOR_CHAT = findByXPath("//*[@class='form-checkbox']");
-    private final By CREATE_PRIVATE_CHAT = findByXPath("//*[@class='btn btn_popup btn_popup_group']");
+    private final By SELECT_ONE_MORE_USER_FOR_CHAT = findByXPath("//*[@class='contact l-flexbox']");
+    private final By CREATE_GROUP_CHAT_BUTTON = findByXPath("//*[@alt='Create a new group chat']");
     private final By PUBLIC_CHAT = findByXPath("//*[@class='contact l-flexbox']/div/div/span[text()='Test User 2, Test User 3, Test User 4']");
-    private final By DELETE_CHAT = findByXPath("//*[@alt='Remove chat']");
+    private final By DELETE_CHAT_BUTTON = findByXPath("//*[@alt='Leave and remove chat']");
+    private final By OK_POPUP_BUTTON_CHAT = findById("deleteChatConfirm");
 
     private final By SEND_REQUEST_TO_ADD_USER = findByXPath("//*[@class='send-request j-sendRequest']"); //is common
 
     private final By REJECT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_cancel j-requestCancel']");
     private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_SENDER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again j-requestAgain']");
     private final By ACCEPT_REQUEST_BUTTON = findByXPath("//*[@class='request-button request-button_ok j-requestConfirm']");
-    //    private final By CHAT_FIELD = findByClass("l-message j-message"); //is common
     private final By CHAT_FIELD = findByCss(".textarea"); //is common
 
     private final By SEND_MESSAGE_BUTTON = findByXPath("//*[@data-balloon='Send message']"); //is common
@@ -35,9 +35,8 @@ public class UserChats extends BasePage {
 
     private final By CONTEXT_MENU_DELETE_USER = findByXPath("//*[@class='deleteContact list-actions-action']");
 
-    private final By OK_POPUP_BUTTON = findById("deleteContactConfirm");
+    private final By OK_POPUP_BUTTON_USER = findById("deleteContactConfirm");
     private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_RECEIVER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again btn_request_again_delete j-requestAgain']");
-
 
 
     /**
@@ -59,17 +58,19 @@ public class UserChats extends BasePage {
     }
 
     public void acceptRequest() {
+//        new Actions(driver).moveToElement(driver.findElement(ACCEPT_REQUEST_BUTTON)).click().perform();
         click(ACCEPT_REQUEST_BUTTON);
+        pause(3000);
+        refreshPage();
         waitUntilElementToBeClickable(USER_ON_LEFT_SIDE);
     }
 
-    public void typeInChat() {
+    public void typeInPrivateChat() {
         click(USER_ON_LEFT_SIDE);
         type(CHAT_FIELD, "Hello for test user!");
-        pause(3000);
         new Actions(driver).moveToElement(driver.findElement(SEND_MESSAGE_BUTTON)).click().perform();
         click(SEND_MESSAGE_BUTTON);
-        pause(5000);
+        pause(3500);
     }
 
     public void messageVerify() {
@@ -84,12 +85,13 @@ public class UserChats extends BasePage {
         pause(1000);
         click(CONTEXT_MENU_DELETE_USER);
         pause(1000);
-        click(OK_POPUP_BUTTON);
+        click(OK_POPUP_BUTTON_USER);
         pause(1500);
     }
 
     public void verifyingDeletedUser() {
         click(USER_ON_LEFT_SIDE);
+        //verifying in test
     }
 
     /**
@@ -103,42 +105,44 @@ public class UserChats extends BasePage {
 //        pause(2000);
 //    }
 
-    public void user4Acceptsrequest() {
-        click(ACCEPT_REQUEST_BUTTON);
-        pause(2000);
-    }
-
+//    public void user4AcceptsRequest() {
+//        click(ACCEPT_REQUEST_BUTTON);
+//        pause(2000);
+//    }
     public void user2CreatesChatWithUser3And4() {
         click(USER_ON_LEFT_SIDE_TEST_USER_3);
         new Actions(driver).moveToElement(driver.findElement(CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER)).click().perform();
         click(CREATE_NEW_GROUP_CHAT_WITH_CURRENT_USER);
+        new Actions(driver).moveToElement(driver.findElement(SELECT_ONE_MORE_USER_FOR_CHAT)).click().perform();
         click(SELECT_ONE_MORE_USER_FOR_CHAT);
-        click(CREATE_PRIVATE_CHAT);
+        click(CREATE_GROUP_CHAT_BUTTON);
         pause(4000);
     }
 
-    public void user2TypesInChat() {
+    public void typeInPublicChat(String message) {
         click(PUBLIC_CHAT);
-        type(CHAT_FIELD, "Hey everybody!");
+        type(CHAT_FIELD, message);
+        new Actions(driver).moveToElement(driver.findElement(SEND_MESSAGE_BUTTON)).click().perform();
         click(SEND_MESSAGE_BUTTON);
+        pause(3500);
     }
 
-    public void user3TypesInChat() {
-        type(CHAT_FIELD, "Hello!");
-        click(SEND_MESSAGE_BUTTON);
-    }
-
-    public void user4TypesInChatAndDeletesChat() {
-        type(CHAT_FIELD, "I am fourth user");
-        click(SEND_MESSAGE_BUTTON);
-    }
-
-    public void user2DeletesChatAndContacts() {
+    public void deleteChat() {
         click(PUBLIC_CHAT);
-        click(DELETE_CHAT);
+        click(DELETE_CHAT_BUTTON);
+        click(OK_POPUP_BUTTON_CHAT);
+    }
+
+    public void removeUser3FromFriendList() {
         new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_3)).contextClick().perform();
         click(CONTEXT_MENU_DELETE_USER);
-        click(OK_POPUP_BUTTON);
+        click(OK_POPUP_BUTTON_USER);
+    }
+
+    public void removeUser4FromFriendList() {
+        new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_4)).contextClick().perform();
+        click(CONTEXT_MENU_DELETE_USER);
+        click(OK_POPUP_BUTTON_USER);
     }
 
     public void user3DeletesChat() {
