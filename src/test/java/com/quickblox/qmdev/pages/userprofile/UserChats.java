@@ -42,6 +42,7 @@ public class UserChats extends BasePage {
 
 
     private final By FOUND_CONTACTS = findByXPath("//*[@class='contact l-flexbox']");
+
     /**
      * Requests and collaborating
      */
@@ -108,7 +109,7 @@ public class UserChats extends BasePage {
         new Actions(driver).moveToElement(driver.findElement(SELECT_ONE_MORE_USER_FOR_CHAT)).click().perform();
         click(SELECT_ONE_MORE_USER_FOR_CHAT);
         click(CREATE_GROUP_CHAT_BUTTON);
-        pause(4000);
+        pause(3000);
     }
 
     public void typeInPublicChat(String message) {
@@ -116,7 +117,7 @@ public class UserChats extends BasePage {
         type(CHAT_FIELD, message);
         new Actions(driver).moveToElement(driver.findElement(SEND_MESSAGE_BUTTON)).click().perform();
         click(SEND_MESSAGE_BUTTON);
-        pause(3500);
+        pause(2000);
     }
 
     public void deleteChat() {
