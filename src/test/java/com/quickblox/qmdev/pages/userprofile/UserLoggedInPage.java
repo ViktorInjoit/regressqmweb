@@ -75,11 +75,8 @@ public class UserLoggedInPage extends BasePage {
 
     public void searchingContactsButton() {
         click(CONTACTS_BUTTON);
+        pause(1000);
         click(SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON);
-//        if (!isElementPresented(SEARCH_FIELD)) {
-//            click(findByXPath("//*[@alt='invite']"));
-//            type(SEARCH_FIELD, "test user");
-//        }
         type(SEARCH_FIELD, "test user");
     }
 
@@ -119,7 +116,7 @@ public class UserLoggedInPage extends BasePage {
 
 
     /**
-     * Checking footer buttons
+     * Checks for footer buttons
      * */
     public void checkingQBButton() {
         click(QB_FOOTER_BUTTON);

@@ -15,12 +15,7 @@ public class PublicChatsTest extends BaseTest {
     private String userMessage2 = "Hello from user 3!";
     private String userMessage3 = "Hey! it's fourth";
 
-//    @BeforeClass
-//    public void initializations() {
-//        softAssert = new SoftAssert();
-//    }
-
-    @Test (priority = 60, enabled = false)
+    @Test (priority = 60, enabled = true)
     public void user2LogInsAndSendsRequestsToAddForUsers3And4() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
@@ -37,7 +32,7 @@ public class PublicChatsTest extends BaseTest {
         userChats.sendAddRequestToUser();
     }
 
-    @Test (priority = 61, enabled = false)
+    @Test (dependsOnMethods = "user2LogInsAndSendsRequestsToAddForUsers3And4", priority = 61, enabled = true)
     public void user3AcceptsRequestFromUser2() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserChats userChats = new UserChats(driver, wait);
@@ -49,7 +44,7 @@ public class PublicChatsTest extends BaseTest {
         userChats.acceptRequest();
     }
 
-    @Test (priority = 62, enabled = false)
+    @Test (dependsOnMethods = "user2LogInsAndSendsRequestsToAddForUsers3And4", priority = 62, enabled = true)
     public void user4AcceptsRequestFromUser2() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserChats userChats = new UserChats(driver, wait);
@@ -61,7 +56,7 @@ public class PublicChatsTest extends BaseTest {
         userChats.acceptRequest();
     }
 
-    @Test (priority = 63, enabled = true)
+    @Test (dependsOnMethods = "user2LogInsAndSendsRequestsToAddForUsers3And4", priority = 63, enabled = true)
     public void user2CreatesPublicChatWithUsers3And4() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserChats userChats = new UserChats(driver, wait);
@@ -74,7 +69,7 @@ public class PublicChatsTest extends BaseTest {
         userChats.typeInPublicChat(userMessage1);
     }
 
-    @Test (priority = 65, enabled = true)
+    @Test (dependsOnMethods = "user2LogInsAndSendsRequestsToAddForUsers3And4", priority = 65, enabled = true)
     public void user3Types() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserChats userChats = new UserChats(driver, wait);
@@ -86,7 +81,7 @@ public class PublicChatsTest extends BaseTest {
         userChats.typeInPublicChat(userMessage2);
     }
 
-    @Test (priority = 66, enabled = true)
+    @Test (dependsOnMethods = "user2LogInsAndSendsRequestsToAddForUsers3And4", priority = 66, enabled = true)
     public void user4Types() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserChats userChats = new UserChats(driver, wait);
@@ -109,17 +104,53 @@ public class PublicChatsTest extends BaseTest {
         welcomePage.logInViaEmailUser2();
 
         userChats.deleteChat();
+//        userChats.removeUser3FromFriendList();
+//        userChats.removeUser4FromFriendList();
+        tearDown();
+    }
+
+    @AfterClass
+    public void user2RemovesContacts() {
+        setUp();
+        WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserChats userChats = new UserChats(driver, wait);
+
+        welcomePage.visit();
+        welcomePage.pressLogInByEmailOrSocial();
+        welcomePage.logInViaEmailUser2();
+
         userChats.removeUser3FromFriendList();
         userChats.removeUser4FromFriendList();
+        tearDown();
     }
 
     @AfterClass
-    public void user3DeletesContactsAndChat() {
+    public void user3RemovesContactsAndChat() {
+        setUp();
+        WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserChats userChats = new UserChats(driver, wait);
 
+        welcomePage.visit();
+        welcomePage.pressLogInByEmailOrSocial();
+        welcomePage.logInViaEmailUser3();
+
+        userChats.deleteChat();
+        userChats.removeUser2FromFriendList();
+        tearDown();
     }
 
     @AfterClass
-    public void user4DeletesContactsAndChat() {
+    public void user4removesContactsAndChat() {
+        setUp();
+        WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserChats userChats = new UserChats(driver, wait);
 
+        welcomePage.visit();
+        welcomePage.pressLogInByEmailOrSocial();
+        welcomePage.logInViaEmailUser4();
+
+        userChats.deleteChat();
+        userChats.removeUser2FromFriendList();
+        tearDown();
     }
 }

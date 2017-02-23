@@ -13,6 +13,7 @@ public class UserChats extends BasePage {
     }
 
     private final By USER_ON_LEFT_SIDE = findByXPath("//*[@class='contact l-flexbox']"); //is common
+    private final By USER_ON_LEFT_SIDE_TEST_USER_2 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 2']");
     private final By USER_ON_LEFT_SIDE_TEST_USER_3 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 3']");
     private final By USER_ON_LEFT_SIDE_TEST_USER_4 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 4']");
 
@@ -21,7 +22,8 @@ public class UserChats extends BasePage {
     private final By CREATE_GROUP_CHAT_BUTTON = findByXPath("//*[@class='btn btn_popup btn_popup_group']");
     private final By PUBLIC_CHAT = findByXPath("//*[@class='contact l-flexbox']/div/div/span[text()='Test User 2, Test User 3, Test User 4']");
     private final By DELETE_CHAT_BUTTON = findByXPath("//*[@alt='Leave and remove chat']");
-    private final By OK_POPUP_BUTTON_PUBLIC_CHAT = findById("deleteChatConfirm");
+//    private final By DELETE_CHAT_CONFIRM_BUTTON = findById("deleteChatConfirm");
+    private final By DELETE_CHAT_CONFIRM_BUTTON = findByCss(".j-deleteChatConfirm");
 
     private final By SEND_REQUEST_TO_ADD_USER = findByXPath("//*[@class='send-request j-sendRequest']"); //is common
 
@@ -39,6 +41,7 @@ public class UserChats extends BasePage {
     private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_RECEIVER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again btn_request_again_delete j-requestAgain']");
 
 
+    private final By FOUND_CONTACTS = findByXPath("//*[@class='contact l-flexbox']");
     /**
      * Requests and collaborating
      */
@@ -121,16 +124,32 @@ public class UserChats extends BasePage {
     public void deleteChat() {
         click(PUBLIC_CHAT);
         click(DELETE_CHAT_BUTTON);
-        click(OK_POPUP_BUTTON_PUBLIC_CHAT);
+        pause(1000);
+        new Actions(driver).moveToElement(driver.findElement(DELETE_CHAT_CONFIRM_BUTTON)).click().perform();
+//        click(DELETE_CHAT_CONFIRM_BUTTON);
+    }
+
+    public void deleteContacts() {
+        int numberOfContacts = getCountOfElements(FOUND_CONTACTS);
+        Object [] foundUsers = new Object[numberOfContacts];
+    }
+
+    public void removeUser2FromFriendList() {
+        click(USER_ON_LEFT_SIDE_TEST_USER_2);
+        new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_2)).contextClick().perform();
+        click(CONTEXT_MENU_DELETE_USER);
+        click(OK_POPUP_BUTTON_USER);
     }
 
     public void removeUser3FromFriendList() {
+        click(USER_ON_LEFT_SIDE_TEST_USER_3);
         new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_3)).contextClick().perform();
         click(CONTEXT_MENU_DELETE_USER);
         click(OK_POPUP_BUTTON_USER);
     }
 
     public void removeUser4FromFriendList() {
+        click(USER_ON_LEFT_SIDE_TEST_USER_4);
         new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_4)).contextClick().perform();
         click(CONTEXT_MENU_DELETE_USER);
         click(OK_POPUP_BUTTON_USER);
