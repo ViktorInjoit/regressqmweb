@@ -104,22 +104,8 @@ public class PublicChatsTest extends BaseTest {
         welcomePage.logInViaEmailUser2();
 
         userChats.deleteChat();
-//        userChats.removeUser3FromFriendList();
-//        userChats.removeUser4FromFriendList();
-        tearDown();
-    }
-
-    @AfterClass
-    public void user2RemovesContacts() {
-        setUp();
-        WelcomePage welcomePage = new WelcomePage(driver, wait);
-        UserChats userChats = new UserChats(driver, wait);
-
-        welcomePage.visit();
-        welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser2();
-
         userChats.removeUser3FromFriendList();
+        refreshPage();
         userChats.removeUser4FromFriendList();
         tearDown();
     }

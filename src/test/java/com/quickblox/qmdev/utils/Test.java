@@ -4,16 +4,18 @@ package com.quickblox.qmdev.utils;
 public class Test {
 
     public static void main(String[] args) {
-        System.out.println(System.getProperty("os.name"));
+//        System.out.println(System.getProperty("os.name"));
+//
+//        StringBuilder result = new StringBuilder();
+//        String windows = "Windows";
+//        String systemProp = System.getProperty("os.name");
+//        if (systemProp.contains(windows)) {
+//            System.out.println("windows");
+//        } else if (systemProp.contains("mac")) {
+//            System.out.println("mac");
+//        }
 
-        StringBuilder result = new StringBuilder();
-        String windows = "Windows";
-        String systemProp = System.getProperty("os.name");
-        if (systemProp.contains(windows)) {
-            System.out.println("windows");
-        } else if (systemProp.contains("mac")) {
-            System.out.println("mac");
-        }
+        System.out.println("" + 46 % 12 + "");
 
 //        char [] windChars = windows.toCharArray();
 //        char [] sysPropChars = systemProp.toCharArray();

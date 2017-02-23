@@ -22,7 +22,6 @@ public class UserChats extends BasePage {
     private final By CREATE_GROUP_CHAT_BUTTON = findByXPath("//*[@class='btn btn_popup btn_popup_group']");
     private final By PUBLIC_CHAT = findByXPath("//*[@class='contact l-flexbox']/div/div/span[text()='Test User 2, Test User 3, Test User 4']");
     private final By DELETE_CHAT_BUTTON = findByXPath("//*[@alt='Leave and remove chat']");
-//    private final By DELETE_CHAT_CONFIRM_BUTTON = findById("deleteChatConfirm");
     private final By DELETE_CHAT_CONFIRM_BUTTON = findByCss(".j-deleteChatConfirm");
 
     private final By SEND_REQUEST_TO_ADD_USER = findByXPath("//*[@class='send-request j-sendRequest']"); //is common
@@ -37,7 +36,8 @@ public class UserChats extends BasePage {
 
     private final By CONTEXT_MENU_DELETE_USER = findByXPath("//*[@class='deleteContact list-actions-action']");
 
-    private final By OK_POPUP_BUTTON_USER = findById("deleteContactConfirm");
+//    private final By OK_POPUP_BUTTON_USER = findById("deleteContactConfirm");
+    private final By OK_POPUP_BUTTON_USER = findByCss(".j-deleteContactConfirm");
     private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_RECEIVER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again btn_request_again_delete j-requestAgain']");
 
 
@@ -46,8 +46,9 @@ public class UserChats extends BasePage {
      * Requests and collaborating
      */
     public void sendAddRequestToUser() {
+        pause(1500);
         click(SEND_REQUEST_TO_ADD_USER);
-        pause(1000);
+        pause(1500);
     }
 
     public void rejectRequestToAddUser() {
@@ -61,11 +62,8 @@ public class UserChats extends BasePage {
     }
 
     public void acceptRequest() {
-//        new Actions(driver).moveToElement(driver.findElement(ACCEPT_REQUEST_BUTTON)).click().perform();
         click(ACCEPT_REQUEST_BUTTON);
         pause(3000);
-        refreshPage();
-        waitUntilElementToBeClickable(USER_ON_LEFT_SIDE);
     }
 
     public void typeInPrivateChat() {
@@ -125,8 +123,9 @@ public class UserChats extends BasePage {
         click(PUBLIC_CHAT);
         click(DELETE_CHAT_BUTTON);
         pause(1000);
-        new Actions(driver).moveToElement(driver.findElement(DELETE_CHAT_CONFIRM_BUTTON)).click().perform();
-//        click(DELETE_CHAT_CONFIRM_BUTTON);
+        new Actions(driver).moveToElement(driver.findElement(DELETE_CHAT_CONFIRM_BUTTON));
+        click(DELETE_CHAT_CONFIRM_BUTTON);
+        pause(2000);
     }
 
     public void deleteContacts() {
@@ -138,6 +137,7 @@ public class UserChats extends BasePage {
         click(USER_ON_LEFT_SIDE_TEST_USER_2);
         new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_2)).contextClick().perform();
         click(CONTEXT_MENU_DELETE_USER);
+        new Actions(driver).moveToElement(driver.findElement(OK_POPUP_BUTTON_USER));
         click(OK_POPUP_BUTTON_USER);
     }
 
@@ -145,6 +145,7 @@ public class UserChats extends BasePage {
         click(USER_ON_LEFT_SIDE_TEST_USER_3);
         new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_3)).contextClick().perform();
         click(CONTEXT_MENU_DELETE_USER);
+        new Actions(driver).moveToElement(driver.findElement(OK_POPUP_BUTTON_USER));
         click(OK_POPUP_BUTTON_USER);
     }
 
@@ -152,14 +153,7 @@ public class UserChats extends BasePage {
         click(USER_ON_LEFT_SIDE_TEST_USER_4);
         new Actions(driver).moveToElement(driver.findElement(USER_ON_LEFT_SIDE_TEST_USER_4)).contextClick().perform();
         click(CONTEXT_MENU_DELETE_USER);
+        new Actions(driver).moveToElement(driver.findElement(OK_POPUP_BUTTON_USER));
         click(OK_POPUP_BUTTON_USER);
-    }
-
-    public void user3DeletesChat() {
-
-    }
-
-    public void user4DeletesChat() {
-
     }
 }
