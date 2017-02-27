@@ -28,7 +28,7 @@ public class WelcomePage extends BasePage {
     private final By PASSWORD_FORM_FACEBOOK = findById("pass");
     private final By SUBMIT_BUTTON_FACEBOOK = findById("u_0_2");
 
-    private final By QUICKBLOX_LOGO_BUTTON = findByXPath(".//*[@class='i-mini_logo']");
+    private final By QUICKBLOX_LOGO_FOOTER_BUTTON = findByXPath(".//*[@class='i-mini_logo']");
     private final By IOS_APP_FOOTER_BUTTON = findByXPath(".//*[@class='i-appstore']");
     private final By ANDROID_APP_FOOTER_BUTTON = findByXPath(".//*[@class='i-android']");
 
@@ -66,39 +66,19 @@ public class WelcomePage extends BasePage {
         click(LOGIN_BY_EMAIL_OR_SOCIAL_BUTTON);
     }
 
-    /**<p> Note that users should be stored in the DB before testing
+    /**<p>
+     * Note: that users should be stored in the DB before testing
      * Note: before using these methods invoke pressLogInByEmailOrSocial() this method first
      * </>*/
-    public WelcomePage logInViaEmailUser1() {
-        clearAndType(EMAIL_FIELD, testEmail1);
+    public WelcomePage logInViaEmail(final String testEmail, final String testPass, final String temporaryPass) {
+        clearAndType(EMAIL_FIELD, testEmail);
         clearAndType(PASS_FIELD, testPass);
         click(LOG_IN);
         if (isElementPresented(LOG_IN_APPEARED_ERROR)) {
-            clearAndType(PASS_FIELD, tempPass);
+            clearAndType(PASS_FIELD, temporaryPass);
             click(LOG_IN);
             return this;
         }
-        return this;
-    }
-
-    public WelcomePage logInViaEmailUser2() {
-        clearAndType(EMAIL_FIELD, testEmail2);
-        clearAndType(PASS_FIELD, testPass);
-        click(LOG_IN);
-        return this;
-    }
-
-    public WelcomePage logInViaEmailUser3() {
-        clearAndType(EMAIL_FIELD, testEmail3);
-        clearAndType(PASS_FIELD, testPass);
-        click(LOG_IN);
-        return this;
-    }
-
-    public WelcomePage logInViaEmailUser4() {
-        clearAndType(EMAIL_FIELD, testEmail4);
-        clearAndType(PASS_FIELD, testPass);
-        click(LOG_IN);
         return this;
     }
 
@@ -159,8 +139,18 @@ public class WelcomePage extends BasePage {
 
 
     /**<p>Just footer buttons</p>*/
+
+    public void checkingFooterButtons(final By FOOTER_BUTTON, final By ELEMENT_ON_OTHER_PAGE) {
+        click(FOOTER_BUTTON);
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        waitUntilElementToBeClickable(ELEMENT_ON_OTHER_PAGE);
+        click(ELEMENT_ON_OTHER_PAGE);
+        waitUntilElementLocated();
+    }
+
     public void checkingTheQBButton() {
-        click(QUICKBLOX_LOGO_BUTTON);
+        click(QUICKBLOX_LOGO_FOOTER_BUTTON);
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         waitUntilElementToBeClickable(QB_GET_STARTED);

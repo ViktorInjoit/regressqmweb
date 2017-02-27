@@ -24,7 +24,7 @@ public class SearchTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
         userLoggedInPage.searchingForUsersFieldOnPage();
         if (driver.findElement(SORRY_MESSAGE).isDisplayed()) {
@@ -44,7 +44,7 @@ public class SearchTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
         userLoggedInPage.searchingForFriendsRedButton();
         userLoggedInPage.searchingforUser2();
@@ -63,7 +63,7 @@ public class SearchTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
         userLoggedInPage.searchingContactsButton();
         softAssert.assertEquals(getText(FOUND_USER), "Test User 2");

@@ -11,21 +11,25 @@ public class LogInsTest extends BaseTest {
     @Test (priority = 10, enabled = true)
     public void logInByEmail() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         refreshPage();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
         userLoggedInPage.logOutByEmail();
     }
 
     @Test(priority = 11, enabled = true)
     public void logInByFacebook() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaFacebook();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         userLoggedInPage.logOutByFacebook();
     }
 

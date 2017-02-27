@@ -11,56 +11,59 @@ import org.testng.asserts.SoftAssert;
 
 public class UserOptionsTest extends BaseTest {
 
-    private SoftAssert softAssert;
-
-    @BeforeClass
-    public void initializations() {
-        softAssert = new SoftAssert();
-    }
+    private SoftAssert softAssert = new SoftAssert();
 
     @Test(priority = 30, enabled = true)
     public void checkProfile() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
     }
 
     @Test(priority = 31, dependsOnMethods = "checkProfile", enabled = true)
     public void checkName() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Profile profile = new Profile(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
-        Profile profile = new Profile(driver, wait);
         profile.changeName();
     }
 
     @Test(priority = 32, dependsOnMethods = "checkProfile", enabled = true)
     public void checkStatus() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Profile profile = new Profile(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
-        Profile profile = new Profile(driver, wait);
         profile.changeStatus();
     }
 
     @Test(priority = 33, dependsOnMethods = "checkProfile", enabled = true)
     public void checkPhoneNumber() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Profile profile = new Profile(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
-        Profile profile = new Profile(driver, wait);
         profile.changePhoneNumber();
         refreshPage();
     }
@@ -68,12 +71,14 @@ public class UserOptionsTest extends BaseTest {
     @Test(priority = 34, dependsOnMethods = "checkProfile", enabled = true)
     public void checkSettings() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Settings settings = new Settings(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openSettingsPopup();
-        Settings settings = new Settings(driver, wait);
         settings.clickWriteFeedback();
         settings.clickAbout();
         userLoggedInPage.closeSettingsPopup();
@@ -82,10 +87,12 @@ public class UserOptionsTest extends BaseTest {
     @Test(priority = 35, dependsOnMethods = "checkProfile", enabled = true)
     public void checkingFooterButtons() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.checkingQBButton();
         userLoggedInPage.checkingiOSButton();
         userLoggedInPage.checkingAndroidButton();
@@ -94,12 +101,14 @@ public class UserOptionsTest extends BaseTest {
     @Test(priority = 36, dependsOnMethods = "checkProfile", enabled = true)
     public void editPassword() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Profile profile = new Profile(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
-        Profile profile = new Profile(driver, wait);
         profile.changePassword();
         softAssert.assertEquals(getText(CHANGE_PASSWORD_SUCCESS_MESSAGE), "Your password has been successfully changed");
         refreshPage();
@@ -109,12 +118,14 @@ public class UserOptionsTest extends BaseTest {
     @Test(priority = 37, dependsOnMethods = "checkProfile", enabled = true)
     public void editPasswordNegative() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Profile profile = new Profile(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
-        Profile profile = new Profile(driver, wait);
         profile.changePasswordNegative();
         softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");
         refreshPage();
@@ -125,12 +136,14 @@ public class UserOptionsTest extends BaseTest {
     public void rollbackAfterChangesNameStatusPhone() {
         setUp();
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Profile profile = new Profile(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
-        Profile profile = new Profile(driver, wait);
         profile.rollbackAfterChangeNameStatusPhone();
         tearDown();
     }
@@ -139,12 +152,14 @@ public class UserOptionsTest extends BaseTest {
     public void rollbackAfterPasswordEditing() {
         setUp();
         WelcomePage welcomePage = new WelcomePage(driver, wait);
+        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        Profile profile = new Profile(driver, wait);
+
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser1();
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
+        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
+
         userLoggedInPage.openProfile();
-        Profile profile = new Profile(driver, wait);
         profile.rollbackAfterEditingPassword();
         if (isElementPresented(OLD_PASSWORD_IS_INCORRECT_MESSAGE)) {
             softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");

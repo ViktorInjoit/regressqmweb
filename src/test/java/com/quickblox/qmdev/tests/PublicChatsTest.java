@@ -3,6 +3,7 @@ package com.quickblox.qmdev.tests;
 import com.quickblox.qmdev.pages.WelcomePage;
 import com.quickblox.qmdev.pages.userprofile.UserChats;
 import com.quickblox.qmdev.pages.userprofile.UserLoggedInPage;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -10,6 +11,10 @@ import org.testng.asserts.SoftAssert;
 public class PublicChatsTest extends BaseTest {
 
     private SoftAssert softAssert = new SoftAssert();
+
+    private final By USER_ON_LEFT_SIDE_TEST_USER_2 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 2']");
+    private final By USER_ON_LEFT_SIDE_TEST_USER_3 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 3']");
+    private final By USER_ON_LEFT_SIDE_TEST_USER_4 = findByXPath("//*[@class='dialog_body']/span[text()='Test User 4']");
 
     private String userMessage1 = "Hey everybody!";
     private String userMessage2 = "Hello from user 3!";
@@ -23,7 +28,7 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser2();
+        welcomePage.logInViaEmail(testEmail2, testPass, tempPass);
 
         userLoggedInPage.searchingContactsButton();
         userLoggedInPage.searchingForUser3();
@@ -39,7 +44,7 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser3();
+        welcomePage.logInViaEmail(testEmail3, testPass, tempPass);
 
         userChats.acceptRequest();
     }
@@ -51,7 +56,7 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser4();
+        welcomePage.logInViaEmail(testEmail4, testPass, tempPass);
 
         userChats.acceptRequest();
     }
@@ -63,9 +68,9 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser2();
+        welcomePage.logInViaEmail(testEmail2, testPass, tempPass);
 
-        userChats.user2CreatesChatWithUser3And4();
+        userChats.user2CreatesChatWithUser3And4(USER_ON_LEFT_SIDE_TEST_USER_3);
         userChats.typeInPublicChat(userMessage1);
     }
 
@@ -76,7 +81,7 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser3();
+        welcomePage.logInViaEmail(testEmail3, testPass, tempPass);
 
         userChats.typeInPublicChat(userMessage2);
     }
@@ -88,7 +93,7 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser4();
+        welcomePage.logInViaEmail(testEmail4, testPass, tempPass);
 
         userChats.typeInPublicChat(userMessage3);
     }
@@ -101,12 +106,9 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser2();
+        welcomePage.logInViaEmail(testEmail2, testPass, tempPass);
 
-        userChats.deleteChat();
-        userChats.removeUser3FromFriendList();
-        refreshPage();
-        userChats.removeUser4FromFriendList();
+        userChats.deleteAllContactsAndChats();
         tearDown();
     }
 
@@ -118,10 +120,9 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser3();
+        welcomePage.logInViaEmail(testEmail3, testPass, tempPass);
 
-        userChats.deleteChat();
-        userChats.removeUser2FromFriendList();
+        userChats.deleteAllContactsAndChats();
         tearDown();
     }
 
@@ -133,10 +134,9 @@ public class PublicChatsTest extends BaseTest {
 
         welcomePage.visit();
         welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmailUser4();
+        welcomePage.logInViaEmail(testEmail4, testPass, tempPass);
 
-        userChats.deleteChat();
-        userChats.removeUser2FromFriendList();
+        userChats.deleteAllContactsAndChats();
         tearDown();
     }
 }
