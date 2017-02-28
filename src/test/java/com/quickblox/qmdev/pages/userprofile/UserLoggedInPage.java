@@ -163,17 +163,16 @@ public class UserLoggedInPage extends BasePage {
     }
 
     public void logOutByFacebook() {
-        refreshPage();
-        new Actions(driver).moveToElement(driver.findElement(USER_ICON)).click().perform();
+        new Actions(driver).moveToElement(driver.findElement(USER_ICON));
         click(USER_ICON);
         click(LOG_OUT);
-        new Actions(driver).moveToElement(driver.findElement(LOG_OUT_POPUP_BUTTON_CANCEL), 39, 35).click().perform();
+        new Actions(driver).moveToElement(driver.findElement(LOG_OUT_POPUP_BUTTON_CANCEL));
         click(LOG_OUT_POPUP_BUTTON_CANCEL);
-        refreshPage();
-        new Actions(driver).moveToElement(driver.findElement(USER_ICON)).click().perform();
+//        refreshPage();
+        new Actions(driver).moveToElement(driver.findElement(USER_ICON));
         click(USER_ICON);
         click(LOG_OUT);
-        new Actions(driver).moveToElement(driver.findElement(LOG_OUT_POPUP_BUTTON_OK)).click().perform();
+        new Actions(driver).moveToElement(driver.findElement(LOG_OUT_POPUP_BUTTON_OK));
         click(LOG_OUT_POPUP_BUTTON_OK);
     }
 }

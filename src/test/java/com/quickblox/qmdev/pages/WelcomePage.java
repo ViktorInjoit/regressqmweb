@@ -13,15 +13,11 @@ public class WelcomePage extends BasePage {
         super(driver, wait);
     }
 
-    private SoftAssert softAssert = new SoftAssert();
-
-//    public final By HOME = findById("home");
-
     private final By LOGIN_WITH_PHONE_NUMBER_BUTTON = findByXPath(".//*[@class='btn l-welcome_btn l-welcome_btn_green j-twitterDigits'][contains(text(),'connect with phone number')]");
     private final By LOGIN_BY_EMAIL_OR_SOCIAL_BUTTON = findById("loginQB");
     private final By EMAIL_FIELD = findById("login-email");
     private final By PASS_FIELD = findById("login-password");
-    private final By LOG_IN = findById("loginForm");
+    private final By LOG_IN_BUTTON = findById("loginForm");
 
     private final By LOG_IN_FACEBOOK_BUTTON = findById("loginFB");
     private final By LOGIN_FORM_FACEBOOK = findById("email");
@@ -33,14 +29,11 @@ public class WelcomePage extends BasePage {
     private final By ANDROID_APP_FOOTER_BUTTON = findByXPath(".//*[@class='i-android']");
 
     private final By QB_GET_STARTED = findByXPath(".//*[@class='btn extra large']");
-    private final By QB_START_BUILDING = findByXPath(".//*[@id='signup-submit']");
-
     private final By ITUNES = findByXPath("//*[@class='lockup product application']//span[text()='View in iTunes']");
-
     private final By PLAY_MARKET_QM = findByXPath("//*[@class='document-subtitle primary']");
 
     private final By PHONE_NUMBER_APPEARED_ERROR = findByXPath(".//*[@class='input-error']");
-    private final By LOG_IN_APPEARED_ERROR = findByXPath("//*[@class='text_error is-error']");
+
 
     public void visit() {
         open(currentDomain);
@@ -73,10 +66,10 @@ public class WelcomePage extends BasePage {
     public WelcomePage logInViaEmail(final String testEmail, final String testPass, final String temporaryPass) {
         clearAndType(EMAIL_FIELD, testEmail);
         clearAndType(PASS_FIELD, testPass);
-        click(LOG_IN);
-        if (isElementPresented(LOG_IN_APPEARED_ERROR)) {
+        click(LOG_IN_BUTTON);
+        if (isElementPresented(LOG_IN_BUTTON)) {
             clearAndType(PASS_FIELD, temporaryPass);
-            click(LOG_IN);
+            click(LOG_IN_BUTTON);
             return this;
         }
         return this;
@@ -103,81 +96,46 @@ public class WelcomePage extends BasePage {
     /**<p>Negative check log in via email
      * </p>*/
     public void negativeLogInViaEmailWithEmptyPasswordField() {
-        //with empty password field
-        clearAndType(EMAIL_FIELD, testEmail1);
-        clearAndType(PASS_FIELD, "");
-        click(LOG_IN);
-        softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "is required");
-        refreshPage();
+        logInViaEmail(testEmail1, "", "");
     }
 
     public void negativeLogInViaEmailWith3CharactersPassword() {
-        clearAndType(EMAIL_FIELD, testEmail1);
-        clearAndType(PASS_FIELD, "123");
-        click(LOG_IN);
-        softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "Error");
-        refreshPage();
+        logInViaEmail(testEmail1, "123", "123");
     }
 
     public void negativeLogInViaEmailwith8CharactersPassword() {
-        clearAndType(EMAIL_FIELD, testEmail1);
-        clearAndType(PASS_FIELD, "12345670");
-        click(LOG_IN);
-        softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "The email or password is incorrect");
-        refreshPage();
+        logInViaEmail(testEmail1, "12345670", "12345670");
     }
 
     public void negativeLogInViaEmailWith10CharactersPassword() {
-        clearAndType(EMAIL_FIELD, testEmail1);
-        clearAndType(PASS_FIELD, "1234567890");
-        click(LOG_IN);
-        softAssert.assertEquals(getText(LOG_IN_APPEARED_ERROR), "The email or password is incorrect");
-        softAssert.assertAll();
-        refreshPage();
+        logInViaEmail(testEmail1, "12345670", "12345670");
     }
 
 
 
-    /**<p>Just footer buttons</p>*/
-
-    public void checkingFooterButtons(final By FOOTER_BUTTON, final By ELEMENT_ON_OTHER_PAGE) {
-        click(FOOTER_BUTTON);
+    /**<p>
+     * Just footer buttons
+     * </p>*/
+    private void checkingFooterButtons(final By footer_button, final By element_on_other_page) {
+        click(footer_button);
+        pause(1000);
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
-        waitUntilElementToBeClickable(ELEMENT_ON_OTHER_PAGE);
-        click(ELEMENT_ON_OTHER_PAGE);
-        waitUntilElementLocated();
-    }
-
-    public void checkingTheQBButton() {
-        click(QUICKBLOX_LOGO_FOOTER_BUTTON);
-        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
-        waitUntilElementToBeClickable(QB_GET_STARTED);
-        click(QB_GET_STARTED);
-        waitUntilElementLocated(QB_START_BUILDING);
+        waitUntilElementToBeClickable(element_on_other_page);
+        click(element_on_other_page);
         driver.close();
         driver.switchTo().window(tabs.get(0));
     }
 
-    public void clickTheiOSButton() {
-        click(IOS_APP_FOOTER_BUTTON);
-        ArrayList<String> tabs1 = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs1.get(1));
-        waitUntilElementToBeClickable(ITUNES);
-        click(ITUNES);
-        driver.close();
-        driver.switchTo().window(tabs1.get(0));
+    public void checkingTheQBButton() {
+        checkingFooterButtons(QUICKBLOX_LOGO_FOOTER_BUTTON, QB_GET_STARTED);
     }
 
-    public void clickTheAndroidButton() {
-        click(ANDROID_APP_FOOTER_BUTTON);
-        pause(1000);
-        ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs2.get(1));
-        waitUntilElementToBeClickable(PLAY_MARKET_QM);
-        click(PLAY_MARKET_QM);
-        driver.close();
-        driver.switchTo().window(tabs2.get(0));
+    public void checkingTheiOSButton() {
+        checkingFooterButtons(IOS_APP_FOOTER_BUTTON, ITUNES);
+    }
+
+    public void checkingTheAndroidButton() {
+        checkingFooterButtons(ANDROID_APP_FOOTER_BUTTON, PLAY_MARKET_QM);
     }
 }

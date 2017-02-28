@@ -25,7 +25,7 @@ public class LinksCheckingsOnWelcomeTest extends BaseTest{
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         welcomePage.visit();
         welcomePage.checkingTheQBButton();
-        welcomePage.clickTheiOSButton();
-        welcomePage.clickTheAndroidButton();
+        welcomePage.checkingTheiOSButton();
+        welcomePage.checkingTheAndroidButton();
     }
 }

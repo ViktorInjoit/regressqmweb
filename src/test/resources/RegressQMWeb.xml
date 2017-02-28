@@ -11,14 +11,14 @@
                     <!--<method name="checkingFooterLinks"/>-->
                 <!--</methods>-->
             <!--</class>-->
-            <!--<class name="com.quickblox.qmdev.tests.LogInsTest">-->
-                <!--<parameter name="appname" value="login"/>-->
-                <!--<methods>-->
-                    <!--<method name="logInByEmail"/>-->
-                    <!--<method name="logInByFacebook"/>-->
-                    <!--<method name="logInByEmailNegative"/>-->
-                <!--</methods>-->
-            <!--</class>-->
+            <class name="com.quickblox.qmdev.tests.LogInsTest">
+                <parameter name="appname" value="login"/>
+                <methods>
+                    <method name="logInByEmail"/>
+                    <method name="logInByFacebook"/>
+                    <method name="logInByEmailNegative"/>
+                </methods>
+            </class>
             <!--<class name="com.quickblox.qmdev.tests.UserOptionsTest">-->
                 <!--<parameter name="appname" value="useroptions"/>-->
                 <!--<methods>-->
@@ -53,17 +53,17 @@
                     <!--<method name="user2VerifiesDeletedUser1"/>-->
                 <!--</methods>-->
             <!--</class>-->
-            <class name="com.quickblox.qmdev.tests.PublicChatsTest">
-                <parameter name="appname" value="publicchats"/>
-                <methods>
-                    <method name="user2LogInsAndSendsRequestsToAdd"/>
-                    <method name="user3AcceptsRequestFromUser2"/>
-                    <method name="user4AcceptsRequestFromUser2"/>
-                    <method name="user2CreatesPublicChatWithUsers3And4"/>
-                    <method name="user3Types"/>
-                    <method name="user4Types"/>
-                </methods>
-            </class>
+            <!--<class name="com.quickblox.qmdev.tests.PublicChatsTest">-->
+                <!--<parameter name="appname" value="publicchats"/>-->
+                <!--<methods>-->
+                    <!--<method name="user2LogInsAndSendsRequestsToAdd"/>-->
+                    <!--<method name="user3AcceptsRequestFromUser2"/>-->
+                    <!--<method name="user4AcceptsRequestFromUser2"/>-->
+                    <!--<method name="user2CreatesPublicChatWithUsers3And4"/>-->
+                    <!--<method name="user3Types"/>-->
+                    <!--<method name="user4Types"/>-->
+                <!--</methods>-->
+            <!--</class>-->
         </classes>
     </test>
 </suite>
