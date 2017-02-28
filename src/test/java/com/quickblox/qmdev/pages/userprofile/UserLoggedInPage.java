@@ -17,8 +17,6 @@ public class UserLoggedInPage extends BasePage {
         super(driver, wait);
     }
 
-    private SoftAssert softAssert = new SoftAssert();
-
     private final By USER_ICON = findById("profile");
     private final By USER_PROFILE = findById("userProfile");
 
@@ -37,13 +35,11 @@ public class UserLoggedInPage extends BasePage {
     private final By CLEAN_SEARCH_FIELD_BUTTON = findByXPath("//*[@id='globalSearch']/button[@class='clean-button j-clean-button']"); //is common
 
     private final By CONTACTS_BUTTON = findById("contacts");
-//    private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@class='search btn btn_invite btn_invite_contacts btn_add']");
     private final By SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON = findByXPath("//*[@alt='invite']");
 
     // footer buttons
     private final By QB_FOOTER_BUTTON = findByXPath("//*[@alt='QuickBlox']");
     private final By QB_GET_STARTED = findByXPath(".//*[@class='btn extra large']");
-    private final By QB_START_BUILDING = findByXPath(".//*[@id='signup-submit']");
     private final By IOS_APP_FOOTER_BUTTON = findByXPath("//*[@alt='download Q-municate iOS']");
     private final By ITUNES = findByXPath("//*[@class='lockup product application']//span[text()='View in iTunes']");
     private final By ANDROID_APP_FOOTER_BUTTON = findByXPath("//*[@alt='download Q-municate Android']");
@@ -55,15 +51,13 @@ public class UserLoggedInPage extends BasePage {
      *     User search
      * </p>
      * */
-
-    public void cleanSearchField() {
-        click(CLEAN_SEARCH_FIELD_BUTTON);
-    }
-
-    public void searchingForFriendsRedButton() {
+    public void searchingForFriendsRedButton(final String userName) {
         click(SEARCH_FOR_FRIENDS_RED_BUTTON);
         new Actions(driver).moveToElement(driver.findElement(SEARCH_FIELD)).click().perform();
         click(SEARCH_FIELD);
+        clearAndType(SEARCH_FIELD, userName);
+        click(CLEAN_SEARCH_FIELD_BUTTON);
+        clearAndType(SEARCH_FIELD, userName);
     }
 
     // If no users appears on contact list then the global search should appears
@@ -73,25 +67,11 @@ public class UserLoggedInPage extends BasePage {
         type(LEFT_TOP_SEARCH, "Test User 2");
     }
 
-    public void searchingContactsButton() {
+    public void searchingContactsButton(final String userName) {
         click(CONTACTS_BUTTON);
         pause(1000);
         click(SEARCH_FOR_FRIENDS_ON_CONTACTS_BUTTON);
-        type(SEARCH_FIELD, "test user");
-    }
-
-    // depends on searchingContactsButton()
-    public void searchingforUser2() {
-        clearAndType(SEARCH_FIELD, "Test User 2");
-    }
-
-    // depends on searchingContactsButton()
-    public void searchingForUser3() {
-        clearAndType(SEARCH_FIELD, "test user 3");
-    }
-
-    public void searchignForUser4() {
-        clearAndType(SEARCH_FIELD, "test user 4");
+        type(SEARCH_FIELD, userName);
     }
 
     /**
@@ -118,38 +98,27 @@ public class UserLoggedInPage extends BasePage {
     /**
      * Checks for footer buttons
      * */
-    public void checkingQBButton() {
-        click(QB_FOOTER_BUTTON);
+    private void checkingFooterButton(final By footerButton, final By elementOnOtherPage) {
+        click(footerButton);
         pause(1000);
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
-        waitUntilElementToBeClickable(QB_GET_STARTED);
-        click(QB_GET_STARTED);
-        waitUntilElementLocated(QB_START_BUILDING);
+        waitUntilElementToBeClickable(elementOnOtherPage);
+        click(elementOnOtherPage);
         driver.close();
         driver.switchTo().window(tabs.get(0));
     }
 
+    public void checkingQBButton() {
+        checkingFooterButton(QB_FOOTER_BUTTON, QB_GET_STARTED);
+    }
+
     public void checkingiOSButton() {
-        click(IOS_APP_FOOTER_BUTTON);
-        pause(1000);
-        ArrayList<String> tabs1 = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs1.get(1));
-        waitUntilElementToBeClickable(ITUNES);
-        click(ITUNES);
-        driver.close();
-        driver.switchTo().window(tabs1.get(0));
+        checkingFooterButton(IOS_APP_FOOTER_BUTTON, ITUNES);
     }
 
     public void checkingAndroidButton() {
-        click(ANDROID_APP_FOOTER_BUTTON);
-        pause(1000);
-        ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs2.get(1));
-        waitUntilElementToBeClickable(PLAY_MARKET_QM);
-        click(PLAY_MARKET_QM);
-        driver.close();
-        driver.switchTo().window(tabs2.get(0));
+        checkingFooterButton(ANDROID_APP_FOOTER_BUTTON, PLAY_MARKET_QM);
     }
 
     /**
@@ -168,7 +137,6 @@ public class UserLoggedInPage extends BasePage {
         click(LOG_OUT);
         new Actions(driver).moveToElement(driver.findElement(LOG_OUT_POPUP_BUTTON_CANCEL));
         click(LOG_OUT_POPUP_BUTTON_CANCEL);
-//        refreshPage();
         new Actions(driver).moveToElement(driver.findElement(USER_ICON));
         click(USER_ICON);
         click(LOG_OUT);

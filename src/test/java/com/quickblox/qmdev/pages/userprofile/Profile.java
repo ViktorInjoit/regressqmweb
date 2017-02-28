@@ -55,33 +55,21 @@ public class Profile extends BasePage {
         clearAndType(PHONE_NUMBER_FIELD, "");
     }
 
-    public Profile changePassword() {
+    public Profile changePassword(final String testPass, final String temporaryPass) {
         click(CHANGE_PASSWORD);
         type(OLD_PASSWORD, testPass);
-        type(NEW_PASSWORD, tempPass);
+        type(NEW_PASSWORD, temporaryPass);
         click(CHANGE_PASSWORD_BUTTON);
         if (isElementPresented(OLD_PASSWORD_IS_INCORRECT_MESSAGE)) {
-            clearAndType(OLD_PASSWORD, tempPass);
+            clearAndType(OLD_PASSWORD, temporaryPass);
             clearAndType(NEW_PASSWORD, testPass);
             click(CHANGE_PASSWORD_BUTTON);
-            waitUntilElementLocated(USER_NAME);
+            pause(2000);
+//            waitUntilElementLocated(USER_NAME);
+            return this;
         }
-        waitUntilElementLocated(USER_NAME);
+//        waitUntilElementLocated(USER_NAME);
+        pause(2000);
         return this;
-    }
-
-    public void changePasswordNegative() {
-        click(CHANGE_PASSWORD);
-        type(OLD_PASSWORD, "sdfsdfsdf");
-        type(NEW_PASSWORD, "qweqweqwe");
-        click(CHANGE_PASSWORD_BUTTON);
-    }
-
-    public void rollbackAfterEditingPassword() {
-        click(CHANGE_PASSWORD);
-        type(OLD_PASSWORD, tempPass);
-        type(NEW_PASSWORD, testPass);
-        click(CHANGE_PASSWORD_BUTTON);
-
     }
 }

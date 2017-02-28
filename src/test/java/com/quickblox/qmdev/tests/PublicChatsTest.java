@@ -30,10 +30,10 @@ public class PublicChatsTest extends BaseTest {
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmail(testEmail2, testPass, tempPass);
 
-        userLoggedInPage.searchingContactsButton();
-        userLoggedInPage.searchingForUser3();
+        userLoggedInPage.searchingContactsButton("test user 3");
         userChats.sendAddRequestToUser();
-        userLoggedInPage.searchignForUser4();
+        refreshPage();
+        userLoggedInPage.searchingContactsButton("test user 4");
         userChats.sendAddRequestToUser();
     }
 

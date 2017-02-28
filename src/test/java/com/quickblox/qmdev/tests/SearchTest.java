@@ -46,10 +46,7 @@ public class SearchTest extends BaseTest {
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
-        userLoggedInPage.searchingForFriendsRedButton();
-        userLoggedInPage.searchingforUser2();
-        userLoggedInPage.cleanSearchField();
-        userLoggedInPage.searchingforUser2();
+        userLoggedInPage.searchingForFriendsRedButton("Test User 2");
 
         softAssert.assertEquals(getText(FOUND_USER), "Test User 2");
         refreshPage();
@@ -65,9 +62,8 @@ public class SearchTest extends BaseTest {
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
-        userLoggedInPage.searchingContactsButton();
+        userLoggedInPage.searchingContactsButton("Test User 2");
         softAssert.assertEquals(getText(FOUND_USER), "Test User 2");
-        userLoggedInPage.cleanSearchField();
         refreshPage();
         userLoggedInPage.logOutByEmail();
         softAssert.assertAll();

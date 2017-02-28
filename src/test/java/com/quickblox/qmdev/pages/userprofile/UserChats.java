@@ -36,7 +36,6 @@ public class UserChats extends BasePage {
 
     private final By OK_POPUP_BUTTON_USER = findByCss(".j-deleteContactConfirm");
     private final By OK_POPUP_BUTTON_CHAT = findByCss(".j-leaveChatConfirm");
-//    private final By OK_POPUP_BUTTON_CHAT = findById("leaveChatConfirm");
     private final By SEND_REQUEST_AGAIN_BUTTON_CHAT_RECEIVER = findByXPath("//*[@class='message message_service l-flexbox l-flexbox_alignstretch'][last()]/div/div/div/button[@class='btn btn_request_again btn_request_again_delete j-requestAgain']");
 
     private final By CONTACTS_COMMON_SELECTOR = findByXPath("//*[@class='contact l-flexbox']");

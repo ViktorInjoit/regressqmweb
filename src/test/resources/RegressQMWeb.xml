@@ -11,27 +11,27 @@
                     <!--<method name="checkingFooterLinks"/>-->
                 <!--</methods>-->
             <!--</class>-->
-            <class name="com.quickblox.qmdev.tests.LogInsTest">
-                <parameter name="appname" value="login"/>
-                <methods>
-                    <method name="logInByEmail"/>
-                    <method name="logInByFacebook"/>
-                    <method name="logInByEmailNegative"/>
-                </methods>
-            </class>
-            <!--<class name="com.quickblox.qmdev.tests.UserOptionsTest">-->
-                <!--<parameter name="appname" value="useroptions"/>-->
+            <!--<class name="com.quickblox.qmdev.tests.LogInsTest">-->
+                <!--<parameter name="appname" value="login"/>-->
                 <!--<methods>-->
-                    <!--<method name="checkProfile"/>-->
-                    <!--<method name="checkName"/>-->
-                    <!--<method name="checkStatus"/>-->
-                    <!--<method name="checkPhoneNumber"/>-->
-                    <!--<method name="checkSettings"/>-->
-                    <!--<method name="checkingFooterButtons"/>-->
-                    <!--<method name="editPassword"/>-->
-                    <!--<method name="editPasswordNegative"/>-->
+                    <!--<method name="logInByEmail"/>-->
+                    <!--<method name="logInByFacebook"/>-->
+                    <!--<method name="logInByEmailNegative"/>-->
                 <!--</methods>-->
             <!--</class>-->
+            <class name="com.quickblox.qmdev.tests.UserOptionsTest">
+                <parameter name="appname" value="useroptions"/>
+                <methods>
+                    <method name="checkProfile"/>
+                    <method name="checkName"/>
+                    <method name="checkStatus"/>
+                    <method name="checkPhoneNumber"/>
+                    <method name="checkSettings"/>
+                    <method name="checkingFooterButtons"/>
+                    <method name="editPassword"/>
+                    <method name="editPasswordNegative"/>
+                </methods>
+            </class>
             <!--<class name="com.quickblox.qmdev.tests.SearchTest">-->
                 <!--<parameter name="appname" value="searches"/>-->
                 <!--<methods>-->

@@ -27,13 +27,10 @@ public class UsersCollaboratingTest extends BaseTest {
         welcomePage.pressLogInByEmailOrSocial();
         welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
-        userLoggedInPage.searchingForFriendsRedButton();
-        userLoggedInPage.searchingforUser2();
+        userLoggedInPage.searchingForFriendsRedButton("Test User 2");
 
         softAssert.assertEquals(getText(FOUND_USER),"Test User 2");
-
         userChats.sendAddRequestToUser();
-
         softAssert.assertEquals(getText(REQUEST_SENT), "Request Sent");
         softAssert.assertAll();
     }

@@ -3,7 +3,6 @@ package com.quickblox.qmdev.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 
@@ -116,13 +115,13 @@ public class WelcomePage extends BasePage {
     /**<p>
      * Just footer buttons
      * </p>*/
-    private void checkingFooterButtons(final By footer_button, final By element_on_other_page) {
-        click(footer_button);
+    private void checkingFooterButtons(final By footerButton, final By elementOnOtherPage) {
+        click(footerButton);
         pause(1000);
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
-        waitUntilElementToBeClickable(element_on_other_page);
-        click(element_on_other_page);
+        waitUntilElementToBeClickable(elementOnOtherPage);
+        click(elementOnOtherPage);
         driver.close();
         driver.switchTo().window(tabs.get(0));
     }

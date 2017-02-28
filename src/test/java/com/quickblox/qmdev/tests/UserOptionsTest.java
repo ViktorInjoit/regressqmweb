@@ -26,7 +26,7 @@ public class UserOptionsTest extends BaseTest {
     }
 
     @Test(priority = 31, dependsOnMethods = "checkProfile", enabled = true)
-    public void checkName() {
+    public void checkNameStatusPhone() {
         WelcomePage welcomePage = new WelcomePage(driver, wait);
         UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
         Profile profile = new Profile(driver, wait);
@@ -37,35 +37,8 @@ public class UserOptionsTest extends BaseTest {
 
         userLoggedInPage.openProfile();
         profile.changeName();
-    }
-
-    @Test(priority = 32, dependsOnMethods = "checkProfile", enabled = true)
-    public void checkStatus() {
-        WelcomePage welcomePage = new WelcomePage(driver, wait);
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
-        Profile profile = new Profile(driver, wait);
-
-        welcomePage.visit();
-        welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
-
-        userLoggedInPage.openProfile();
         profile.changeStatus();
-    }
-
-    @Test(priority = 33, dependsOnMethods = "checkProfile", enabled = true)
-    public void checkPhoneNumber() {
-        WelcomePage welcomePage = new WelcomePage(driver, wait);
-        UserLoggedInPage userLoggedInPage = new UserLoggedInPage(driver, wait);
-        Profile profile = new Profile(driver, wait);
-
-        welcomePage.visit();
-        welcomePage.pressLogInByEmailOrSocial();
-        welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
-
-        userLoggedInPage.openProfile();
         profile.changePhoneNumber();
-        refreshPage();
     }
 
     @Test(priority = 34, dependsOnMethods = "checkProfile", enabled = true)
@@ -109,7 +82,7 @@ public class UserOptionsTest extends BaseTest {
         welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
         userLoggedInPage.openProfile();
-        profile.changePassword();
+        profile.changePassword(testPass, tempPass);
         softAssert.assertEquals(getText(CHANGE_PASSWORD_SUCCESS_MESSAGE), "Your password has been successfully changed");
         refreshPage();
         softAssert.assertAll();
@@ -126,7 +99,7 @@ public class UserOptionsTest extends BaseTest {
         welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
         userLoggedInPage.openProfile();
-        profile.changePasswordNegative();
+        profile.changePassword("sdfsdfsdf", "qweqweqwe");
         softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");
         refreshPage();
         softAssert.assertAll();
@@ -160,10 +133,7 @@ public class UserOptionsTest extends BaseTest {
         welcomePage.logInViaEmail(testEmail1, testPass, tempPass);
 
         userLoggedInPage.openProfile();
-        profile.rollbackAfterEditingPassword();
-        if (isElementPresented(OLD_PASSWORD_IS_INCORRECT_MESSAGE)) {
-            softAssert.assertEquals(getText(OLD_PASSWORD_IS_INCORRECT_MESSAGE), "Old password is incorrect");
-        }
+        profile.changePassword(testPass, tempPass);
         tearDown();
     }
 }
